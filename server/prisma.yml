@@ -1,0 +1,8 @@
+endpoint: https://quiz-game-demo-0d2824cd6b.herokuapp.com/
+datamodel: datamodel.graphql
+generate:
+  - generator: typescript-client
+    output: ./generated/prisma-client/
+hooks:
+  post-deploy:
+    - prisma generate
