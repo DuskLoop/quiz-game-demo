@@ -13,5 +13,8 @@ export const Mutation: MutationResolvers.Type = {
   },
   createUser: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
+  },
+  submitAnswer: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
   }
 };

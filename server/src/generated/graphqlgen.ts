@@ -589,6 +589,11 @@ export namespace MutationResolvers {
     name: string;
   }
 
+  export interface ArgsSubmitAnswer {
+    questionID: string;
+    songID: string;
+  }
+
   export type StartGameResolver = (
     parent: undefined,
     args: ArgsStartGame,
@@ -609,6 +614,13 @@ export namespace MutationResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
+
+  export type SubmitAnswerResolver = (
+    parent: undefined,
+    args: ArgsSubmitAnswer,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => SongQuestion | Promise<SongQuestion>;
 
   export interface Type {
     startGame: (
@@ -631,41 +643,48 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
+
+    submitAnswer: (
+      parent: undefined,
+      args: ArgsSubmitAnswer,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => SongQuestion | Promise<SongQuestion>;
   }
 }
 
 export namespace SubscriptionResolvers {
   export const defaultResolvers = {};
 
-  export type StartGameResolver = {
+  export type StartRoundResolver = {
     subscribe: (
       parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => AsyncIterator<boolean> | Promise<AsyncIterator<boolean>>;
+    ) => AsyncIterator<SongQuestion> | Promise<AsyncIterator<SongQuestion>>;
     resolve?: (
       parent: undefined,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => boolean | Promise<boolean>;
+    ) => SongQuestion | Promise<SongQuestion>;
   };
 
   export interface Type {
-    startGame: {
+    startRound: {
       subscribe: (
         parent: undefined,
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => AsyncIterator<boolean> | Promise<AsyncIterator<boolean>>;
+      ) => AsyncIterator<SongQuestion> | Promise<AsyncIterator<SongQuestion>>;
       resolve?: (
         parent: undefined,
         args: {},
         ctx: Context,
         info: GraphQLResolveInfo
-      ) => boolean | Promise<boolean>;
+      ) => SongQuestion | Promise<SongQuestion>;
     };
   }
 }

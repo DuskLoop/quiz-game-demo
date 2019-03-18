@@ -5,7 +5,7 @@ import { SubscriptionResolvers } from "../graphqlgen";
 
 export const Subscription: SubscriptionResolvers.Type = {
   ...SubscriptionResolvers.defaultResolvers,
-  startGame: {
+  startRound: {
     subscribe: (parent, args, ctx) => {
       throw new Error("Resolver not implemented");
     }

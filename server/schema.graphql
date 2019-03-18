@@ -9,10 +9,11 @@ type Mutation {
   startGame(player1Id: ID!, player2Id: ID!): Game!
   startNewGameRound(gameId: ID!): GameRound!
   createUser(name: String!): User!
+  submitAnswer(questionID: ID!, songID: ID!): SongQuestion!
 }
 
 type Subscription {
-  startGame: Boolean!
+  startRound: SongQuestion!
 }
 
 type User {

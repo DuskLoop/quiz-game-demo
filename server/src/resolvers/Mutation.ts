@@ -4,6 +4,7 @@ import {
   SongQuestionCreateWithoutGameRoundInput,
   GameRoundCreateWithoutGameInput
 } from "../../generated/prisma-client";
+import { pubsub } from "..";
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
@@ -36,5 +37,21 @@ export const Mutation: MutationResolvers.Type = {
     });
 
     return newGameRound;
+  },
+  submitAnswer: async (parent, args, ctx) => {
+    const newQuestion = await ctx.prisma.updateSongQuestion({
+      where: { id: args.questionID },
+      data: {
+        player1Answer: {
+          create: {
+            correct: false,
+            guessedSong: { connect: { id: args.songID } },
+            time: 10
+          }
+        }
+      }
+    });
+    pubsub.publish("QUESTION_SUBMITTED", { startRound: newQuestion });
+    return newQuestion;
   }
 };
