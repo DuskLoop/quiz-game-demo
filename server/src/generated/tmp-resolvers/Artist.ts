@@ -1,12 +1,12 @@
 // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
 // Please do not import this file directly but copy & paste to your application code.
 
-import { UserResolvers } from "../graphqlgen";
+import { ArtistResolvers } from "../graphqlgen";
 
-export const User: UserResolvers.Type = {
-  ...UserResolvers.defaultResolvers,
+export const Artist: ArtistResolvers.Type = {
+  ...ArtistResolvers.defaultResolvers,
 
-  games: (parent, args, ctx) => {
+  songs: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   }
 };

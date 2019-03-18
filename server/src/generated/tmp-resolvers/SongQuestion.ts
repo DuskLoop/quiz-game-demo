@@ -1,17 +1,21 @@
 // This resolver file was scaffolded by github.com/prisma/graphqlgen, DO NOT EDIT.
 // Please do not import this file directly but copy & paste to your application code.
 
-import { QueryResolvers } from "../graphqlgen";
+import { SongQuestionResolvers } from "../graphqlgen";
 
-export const Query: QueryResolvers.Type = {
-  ...QueryResolvers.defaultResolvers,
-  games: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  users: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
+export const SongQuestion: SongQuestionResolvers.Type = {
+  ...SongQuestionResolvers.defaultResolvers,
+
   song: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  songAlternatives: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  player1Answer: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  player2Answer: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
   gameRound: (parent, args, ctx) => {

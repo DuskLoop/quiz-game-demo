@@ -1,12 +1,81 @@
 type Query {
+  games: [Game!]!
   users: [User!]!
+  song(id: ID!): Song
+  gameRound: GameRound!
 }
 
 type Mutation {
-  createUser(name: String!): User
+  startGame(player1Id: ID!, player2Id: ID!): Game!
+  startNewGameRound(gameId: ID!): GameRound!
+  createUser(name: String!): User!
+}
+
+type Subscription {
+  startGame: Boolean!
 }
 
 type User {
   id: ID!
   name: String!
+  games: [Game!]!
+}
+
+enum WhosTurn {
+  PLAYER1
+  PLAYER2
+}
+
+enum GameRoundStatus {
+  ACTIVE
+  COMPLETED
+  CANCELED
+}
+
+type Game {
+  id: ID!
+  player1: User!
+  player2: User!
+  gameRounds: [GameRound!]!
+  whosTurn: WhosTurn!
+}
+
+type GameRound {
+  id: ID!
+  status: GameRoundStatus!
+  songQuestions: [SongQuestion!]!
+  game: Game!
+}
+
+type SongQuestion {
+  id: ID!
+  song: HiddenSong!
+  songAlternatives: [Song!]!
+  player1Answer: SongAnswer
+  player2Answer: SongAnswer
+  gameRound: GameRound!
+}
+
+type SongAnswer {
+  id: ID!
+  correct: Boolean!
+  guessedSong: Song
+  time: Int
+  songQuestion: SongQuestion!
+}
+
+type HiddenSong {
+  id: ID!
+}
+
+type Song {
+  id: ID!
+  name: String!
+  artist: Artist!
+}
+
+type Artist {
+  id: ID!
+  name: String!
+  songs: [Song!]!
 }

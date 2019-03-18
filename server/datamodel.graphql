@@ -1,4 +1,61 @@
+enum WhosTurn {
+  PLAYER1
+  PLAYER2
+}
+
+enum GameRoundStatus {
+  ACTIVE
+  COMPLETED
+  CANCELED
+}
+
 type User {
   id: ID! @unique @id
   name: String!
+  gamesAsPlayer1: [Game!]! @relation(name: "Player1Relation")
+  gamesAsPlayer2: [Game!]! @relation(name: "Player2Relation")
+}
+
+type Game {
+  id: ID! @unique @id
+  player1: User! @relation(name: "Player1Relation")
+  player2: User! @relation(name: "Player2Relation")
+  gameRounds: [GameRound!]!
+  whosTurn: WhosTurn!
+}
+
+type GameRound {
+  id: ID! @unique @id
+  status: GameRoundStatus!
+  songQuestions: [SongQuestion!]!
+  Game: Game!
+}
+
+type SongQuestion {
+  id: ID! @unique @id
+  song: Song!
+  player1Answer: SongAnswer @relation(name: "Player1AnswerRelation")
+  player2Answer: SongAnswer @relation(name: "Player2AnswerRelation")
+  gameRound: GameRound!
+}
+
+type SongAnswer {
+  id: ID! @unique @id
+  correct: Boolean!
+  guessedSong: Song!
+  time: Int!
+  player1SongQuestion: SongQuestion @relation(name: "Player1AnswerRelation")
+  player2SongQuestion: SongQuestion @relation(name: "Player2AnswerRelation")
+}
+
+type Song {
+  id: ID! @unique @id
+  name: String! @unique
+  artist: Artist!
+}
+
+type Artist {
+  id: ID! @unique @id
+  name: String! @unique
+  songs: [Song!]!
 }

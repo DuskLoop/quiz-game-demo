@@ -14,6 +14,12 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
   U[keyof U];
 
 export interface Exists {
+  artist: (where?: ArtistWhereInput) => Promise<boolean>;
+  game: (where?: GameWhereInput) => Promise<boolean>;
+  gameRound: (where?: GameRoundWhereInput) => Promise<boolean>;
+  song: (where?: SongWhereInput) => Promise<boolean>;
+  songAnswer: (where?: SongAnswerWhereInput) => Promise<boolean>;
+  songQuestion: (where?: SongQuestionWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -36,6 +42,120 @@ export interface Prisma {
    * Queries
    */
 
+  artist: (where: ArtistWhereUniqueInput) => ArtistPromise;
+  artists: (args?: {
+    where?: ArtistWhereInput;
+    orderBy?: ArtistOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Artist>;
+  artistsConnection: (args?: {
+    where?: ArtistWhereInput;
+    orderBy?: ArtistOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ArtistConnectionPromise;
+  game: (where: GameWhereUniqueInput) => GamePromise;
+  games: (args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Game>;
+  gamesConnection: (args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => GameConnectionPromise;
+  gameRound: (where: GameRoundWhereUniqueInput) => GameRoundPromise;
+  gameRounds: (args?: {
+    where?: GameRoundWhereInput;
+    orderBy?: GameRoundOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<GameRound>;
+  gameRoundsConnection: (args?: {
+    where?: GameRoundWhereInput;
+    orderBy?: GameRoundOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => GameRoundConnectionPromise;
+  song: (where: SongWhereUniqueInput) => SongPromise;
+  songs: (args?: {
+    where?: SongWhereInput;
+    orderBy?: SongOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Song>;
+  songsConnection: (args?: {
+    where?: SongWhereInput;
+    orderBy?: SongOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SongConnectionPromise;
+  songAnswer: (where: SongAnswerWhereUniqueInput) => SongAnswerPromise;
+  songAnswers: (args?: {
+    where?: SongAnswerWhereInput;
+    orderBy?: SongAnswerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<SongAnswer>;
+  songAnswersConnection: (args?: {
+    where?: SongAnswerWhereInput;
+    orderBy?: SongAnswerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SongAnswerConnectionPromise;
+  songQuestion: (where: SongQuestionWhereUniqueInput) => SongQuestionPromise;
+  songQuestions: (args?: {
+    where?: SongQuestionWhereInput;
+    orderBy?: SongQuestionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<SongQuestion>;
+  songQuestionsConnection: (args?: {
+    where?: SongQuestionWhereInput;
+    orderBy?: SongQuestionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SongQuestionConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserPromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -61,6 +181,102 @@ export interface Prisma {
    * Mutations
    */
 
+  createArtist: (data: ArtistCreateInput) => ArtistPromise;
+  updateArtist: (args: {
+    data: ArtistUpdateInput;
+    where: ArtistWhereUniqueInput;
+  }) => ArtistPromise;
+  updateManyArtists: (args: {
+    data: ArtistUpdateManyMutationInput;
+    where?: ArtistWhereInput;
+  }) => BatchPayloadPromise;
+  upsertArtist: (args: {
+    where: ArtistWhereUniqueInput;
+    create: ArtistCreateInput;
+    update: ArtistUpdateInput;
+  }) => ArtistPromise;
+  deleteArtist: (where: ArtistWhereUniqueInput) => ArtistPromise;
+  deleteManyArtists: (where?: ArtistWhereInput) => BatchPayloadPromise;
+  createGame: (data: GameCreateInput) => GamePromise;
+  updateGame: (args: {
+    data: GameUpdateInput;
+    where: GameWhereUniqueInput;
+  }) => GamePromise;
+  updateManyGames: (args: {
+    data: GameUpdateManyMutationInput;
+    where?: GameWhereInput;
+  }) => BatchPayloadPromise;
+  upsertGame: (args: {
+    where: GameWhereUniqueInput;
+    create: GameCreateInput;
+    update: GameUpdateInput;
+  }) => GamePromise;
+  deleteGame: (where: GameWhereUniqueInput) => GamePromise;
+  deleteManyGames: (where?: GameWhereInput) => BatchPayloadPromise;
+  createGameRound: (data: GameRoundCreateInput) => GameRoundPromise;
+  updateGameRound: (args: {
+    data: GameRoundUpdateInput;
+    where: GameRoundWhereUniqueInput;
+  }) => GameRoundPromise;
+  updateManyGameRounds: (args: {
+    data: GameRoundUpdateManyMutationInput;
+    where?: GameRoundWhereInput;
+  }) => BatchPayloadPromise;
+  upsertGameRound: (args: {
+    where: GameRoundWhereUniqueInput;
+    create: GameRoundCreateInput;
+    update: GameRoundUpdateInput;
+  }) => GameRoundPromise;
+  deleteGameRound: (where: GameRoundWhereUniqueInput) => GameRoundPromise;
+  deleteManyGameRounds: (where?: GameRoundWhereInput) => BatchPayloadPromise;
+  createSong: (data: SongCreateInput) => SongPromise;
+  updateSong: (args: {
+    data: SongUpdateInput;
+    where: SongWhereUniqueInput;
+  }) => SongPromise;
+  updateManySongs: (args: {
+    data: SongUpdateManyMutationInput;
+    where?: SongWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSong: (args: {
+    where: SongWhereUniqueInput;
+    create: SongCreateInput;
+    update: SongUpdateInput;
+  }) => SongPromise;
+  deleteSong: (where: SongWhereUniqueInput) => SongPromise;
+  deleteManySongs: (where?: SongWhereInput) => BatchPayloadPromise;
+  createSongAnswer: (data: SongAnswerCreateInput) => SongAnswerPromise;
+  updateSongAnswer: (args: {
+    data: SongAnswerUpdateInput;
+    where: SongAnswerWhereUniqueInput;
+  }) => SongAnswerPromise;
+  updateManySongAnswers: (args: {
+    data: SongAnswerUpdateManyMutationInput;
+    where?: SongAnswerWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSongAnswer: (args: {
+    where: SongAnswerWhereUniqueInput;
+    create: SongAnswerCreateInput;
+    update: SongAnswerUpdateInput;
+  }) => SongAnswerPromise;
+  deleteSongAnswer: (where: SongAnswerWhereUniqueInput) => SongAnswerPromise;
+  deleteManySongAnswers: (where?: SongAnswerWhereInput) => BatchPayloadPromise;
+  createSongQuestion: (data: SongQuestionCreateInput) => SongQuestionPromise;
+  updateSongQuestion: (args: {
+    data: SongQuestionUpdateInput;
+    where: SongQuestionWhereUniqueInput;
+  }) => SongQuestionPromise;
+  upsertSongQuestion: (args: {
+    where: SongQuestionWhereUniqueInput;
+    create: SongQuestionCreateInput;
+    update: SongQuestionUpdateInput;
+  }) => SongQuestionPromise;
+  deleteSongQuestion: (
+    where: SongQuestionWhereUniqueInput
+  ) => SongQuestionPromise;
+  deleteManySongQuestions: (
+    where?: SongQuestionWhereInput
+  ) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -86,6 +302,24 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  artist: (
+    where?: ArtistSubscriptionWhereInput
+  ) => ArtistSubscriptionPayloadSubscription;
+  game: (
+    where?: GameSubscriptionWhereInput
+  ) => GameSubscriptionPayloadSubscription;
+  gameRound: (
+    where?: GameRoundSubscriptionWhereInput
+  ) => GameRoundSubscriptionPayloadSubscription;
+  song: (
+    where?: SongSubscriptionWhereInput
+  ) => SongSubscriptionPayloadSubscription;
+  songAnswer: (
+    where?: SongAnswerSubscriptionWhereInput
+  ) => SongAnswerSubscriptionPayloadSubscription;
+  songQuestion: (
+    where?: SongQuestionSubscriptionWhereInput
+  ) => SongQuestionSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -99,6 +333,70 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type SongOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type ArtistOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type GameRoundStatus = "ACTIVE" | "COMPLETED" | "CANCELED";
+
+export type WhosTurn = "PLAYER1" | "PLAYER2";
+
+export type GameOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "whosTurn_ASC"
+  | "whosTurn_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type GameRoundOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "status_ASC"
+  | "status_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type SongQuestionOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type SongAnswerOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "correct_ASC"
+  | "correct_DESC"
+  | "time_ASC"
+  | "time_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -111,9 +409,115 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type UserWhereUniqueInput = AtLeastOne<{
+export type ArtistWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  name?: String;
+}>;
+
+export interface SongWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  artist?: ArtistWhereInput;
+  AND?: SongWhereInput[] | SongWhereInput;
+  OR?: SongWhereInput[] | SongWhereInput;
+  NOT?: SongWhereInput[] | SongWhereInput;
+}
+
+export interface ArtistWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  songs_every?: SongWhereInput;
+  songs_some?: SongWhereInput;
+  songs_none?: SongWhereInput;
+  AND?: ArtistWhereInput[] | ArtistWhereInput;
+  OR?: ArtistWhereInput[] | ArtistWhereInput;
+  NOT?: ArtistWhereInput[] | ArtistWhereInput;
+}
+
+export type GameWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
+
+export interface GameWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  player1?: UserWhereInput;
+  player2?: UserWhereInput;
+  gameRounds_every?: GameRoundWhereInput;
+  gameRounds_some?: GameRoundWhereInput;
+  gameRounds_none?: GameRoundWhereInput;
+  whosTurn?: WhosTurn;
+  whosTurn_not?: WhosTurn;
+  whosTurn_in?: WhosTurn[] | WhosTurn;
+  whosTurn_not_in?: WhosTurn[] | WhosTurn;
+  AND?: GameWhereInput[] | GameWhereInput;
+  OR?: GameWhereInput[] | GameWhereInput;
+  NOT?: GameWhereInput[] | GameWhereInput;
+}
 
 export interface UserWhereInput {
   id?: ID_Input;
@@ -144,21 +548,940 @@ export interface UserWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
+  gamesAsPlayer1_every?: GameWhereInput;
+  gamesAsPlayer1_some?: GameWhereInput;
+  gamesAsPlayer1_none?: GameWhereInput;
+  gamesAsPlayer2_every?: GameWhereInput;
+  gamesAsPlayer2_some?: GameWhereInput;
+  gamesAsPlayer2_none?: GameWhereInput;
   AND?: UserWhereInput[] | UserWhereInput;
   OR?: UserWhereInput[] | UserWhereInput;
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
+export interface GameRoundWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  status?: GameRoundStatus;
+  status_not?: GameRoundStatus;
+  status_in?: GameRoundStatus[] | GameRoundStatus;
+  status_not_in?: GameRoundStatus[] | GameRoundStatus;
+  songQuestions_every?: SongQuestionWhereInput;
+  songQuestions_some?: SongQuestionWhereInput;
+  songQuestions_none?: SongQuestionWhereInput;
+  Game?: GameWhereInput;
+  AND?: GameRoundWhereInput[] | GameRoundWhereInput;
+  OR?: GameRoundWhereInput[] | GameRoundWhereInput;
+  NOT?: GameRoundWhereInput[] | GameRoundWhereInput;
+}
+
+export interface SongQuestionWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  song?: SongWhereInput;
+  player1Answer?: SongAnswerWhereInput;
+  player2Answer?: SongAnswerWhereInput;
+  gameRound?: GameRoundWhereInput;
+  AND?: SongQuestionWhereInput[] | SongQuestionWhereInput;
+  OR?: SongQuestionWhereInput[] | SongQuestionWhereInput;
+  NOT?: SongQuestionWhereInput[] | SongQuestionWhereInput;
+}
+
+export interface SongAnswerWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  correct?: Boolean;
+  correct_not?: Boolean;
+  guessedSong?: SongWhereInput;
+  time?: Int;
+  time_not?: Int;
+  time_in?: Int[] | Int;
+  time_not_in?: Int[] | Int;
+  time_lt?: Int;
+  time_lte?: Int;
+  time_gt?: Int;
+  time_gte?: Int;
+  player1SongQuestion?: SongQuestionWhereInput;
+  player2SongQuestion?: SongQuestionWhereInput;
+  AND?: SongAnswerWhereInput[] | SongAnswerWhereInput;
+  OR?: SongAnswerWhereInput[] | SongAnswerWhereInput;
+  NOT?: SongAnswerWhereInput[] | SongAnswerWhereInput;
+}
+
+export type GameRoundWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export type SongWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  name?: String;
+}>;
+
+export type SongAnswerWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export type SongQuestionWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface ArtistCreateInput {
+  name: String;
+  songs?: SongCreateManyWithoutArtistInput;
+}
+
+export interface SongCreateManyWithoutArtistInput {
+  create?: SongCreateWithoutArtistInput[] | SongCreateWithoutArtistInput;
+  connect?: SongWhereUniqueInput[] | SongWhereUniqueInput;
+}
+
+export interface SongCreateWithoutArtistInput {
+  name: String;
+}
+
+export interface ArtistUpdateInput {
+  name?: String;
+  songs?: SongUpdateManyWithoutArtistInput;
+}
+
+export interface SongUpdateManyWithoutArtistInput {
+  create?: SongCreateWithoutArtistInput[] | SongCreateWithoutArtistInput;
+  delete?: SongWhereUniqueInput[] | SongWhereUniqueInput;
+  connect?: SongWhereUniqueInput[] | SongWhereUniqueInput;
+  disconnect?: SongWhereUniqueInput[] | SongWhereUniqueInput;
+  update?:
+    | SongUpdateWithWhereUniqueWithoutArtistInput[]
+    | SongUpdateWithWhereUniqueWithoutArtistInput;
+  upsert?:
+    | SongUpsertWithWhereUniqueWithoutArtistInput[]
+    | SongUpsertWithWhereUniqueWithoutArtistInput;
+  deleteMany?: SongScalarWhereInput[] | SongScalarWhereInput;
+  updateMany?:
+    | SongUpdateManyWithWhereNestedInput[]
+    | SongUpdateManyWithWhereNestedInput;
+}
+
+export interface SongUpdateWithWhereUniqueWithoutArtistInput {
+  where: SongWhereUniqueInput;
+  data: SongUpdateWithoutArtistDataInput;
+}
+
+export interface SongUpdateWithoutArtistDataInput {
+  name?: String;
+}
+
+export interface SongUpsertWithWhereUniqueWithoutArtistInput {
+  where: SongWhereUniqueInput;
+  update: SongUpdateWithoutArtistDataInput;
+  create: SongCreateWithoutArtistInput;
+}
+
+export interface SongScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: SongScalarWhereInput[] | SongScalarWhereInput;
+  OR?: SongScalarWhereInput[] | SongScalarWhereInput;
+  NOT?: SongScalarWhereInput[] | SongScalarWhereInput;
+}
+
+export interface SongUpdateManyWithWhereNestedInput {
+  where: SongScalarWhereInput;
+  data: SongUpdateManyDataInput;
+}
+
+export interface SongUpdateManyDataInput {
+  name?: String;
+}
+
+export interface ArtistUpdateManyMutationInput {
+  name?: String;
+}
+
+export interface GameCreateInput {
+  player1: UserCreateOneWithoutGamesAsPlayer1Input;
+  player2: UserCreateOneWithoutGamesAsPlayer2Input;
+  gameRounds?: GameRoundCreateManyWithoutGameInput;
+  whosTurn: WhosTurn;
+}
+
+export interface UserCreateOneWithoutGamesAsPlayer1Input {
+  create?: UserCreateWithoutGamesAsPlayer1Input;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserCreateWithoutGamesAsPlayer1Input {
+  name: String;
+  gamesAsPlayer2?: GameCreateManyWithoutPlayer2Input;
+}
+
+export interface GameCreateManyWithoutPlayer2Input {
+  create?: GameCreateWithoutPlayer2Input[] | GameCreateWithoutPlayer2Input;
+  connect?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+}
+
+export interface GameCreateWithoutPlayer2Input {
+  player1: UserCreateOneWithoutGamesAsPlayer1Input;
+  gameRounds?: GameRoundCreateManyWithoutGameInput;
+  whosTurn: WhosTurn;
+}
+
+export interface GameRoundCreateManyWithoutGameInput {
+  create?: GameRoundCreateWithoutGameInput[] | GameRoundCreateWithoutGameInput;
+  connect?: GameRoundWhereUniqueInput[] | GameRoundWhereUniqueInput;
+}
+
+export interface GameRoundCreateWithoutGameInput {
+  status: GameRoundStatus;
+  songQuestions?: SongQuestionCreateManyWithoutGameRoundInput;
+}
+
+export interface SongQuestionCreateManyWithoutGameRoundInput {
+  create?:
+    | SongQuestionCreateWithoutGameRoundInput[]
+    | SongQuestionCreateWithoutGameRoundInput;
+  connect?: SongQuestionWhereUniqueInput[] | SongQuestionWhereUniqueInput;
+}
+
+export interface SongQuestionCreateWithoutGameRoundInput {
+  song: SongCreateOneInput;
+  player1Answer?: SongAnswerCreateOneWithoutPlayer1SongQuestionInput;
+  player2Answer?: SongAnswerCreateOneWithoutPlayer2SongQuestionInput;
+}
+
+export interface SongCreateOneInput {
+  create?: SongCreateInput;
+  connect?: SongWhereUniqueInput;
+}
+
+export interface SongCreateInput {
+  name: String;
+  artist: ArtistCreateOneWithoutSongsInput;
+}
+
+export interface ArtistCreateOneWithoutSongsInput {
+  create?: ArtistCreateWithoutSongsInput;
+  connect?: ArtistWhereUniqueInput;
+}
+
+export interface ArtistCreateWithoutSongsInput {
+  name: String;
+}
+
+export interface SongAnswerCreateOneWithoutPlayer1SongQuestionInput {
+  create?: SongAnswerCreateWithoutPlayer1SongQuestionInput;
+  connect?: SongAnswerWhereUniqueInput;
+}
+
+export interface SongAnswerCreateWithoutPlayer1SongQuestionInput {
+  correct: Boolean;
+  guessedSong: SongCreateOneInput;
+  time: Int;
+  player2SongQuestion?: SongQuestionCreateOneWithoutPlayer2AnswerInput;
+}
+
+export interface SongQuestionCreateOneWithoutPlayer2AnswerInput {
+  create?: SongQuestionCreateWithoutPlayer2AnswerInput;
+  connect?: SongQuestionWhereUniqueInput;
+}
+
+export interface SongQuestionCreateWithoutPlayer2AnswerInput {
+  song: SongCreateOneInput;
+  player1Answer?: SongAnswerCreateOneWithoutPlayer1SongQuestionInput;
+  gameRound: GameRoundCreateOneWithoutSongQuestionsInput;
+}
+
+export interface GameRoundCreateOneWithoutSongQuestionsInput {
+  create?: GameRoundCreateWithoutSongQuestionsInput;
+  connect?: GameRoundWhereUniqueInput;
+}
+
+export interface GameRoundCreateWithoutSongQuestionsInput {
+  status: GameRoundStatus;
+  Game: GameCreateOneWithoutGameRoundsInput;
+}
+
+export interface GameCreateOneWithoutGameRoundsInput {
+  create?: GameCreateWithoutGameRoundsInput;
+  connect?: GameWhereUniqueInput;
+}
+
+export interface GameCreateWithoutGameRoundsInput {
+  player1: UserCreateOneWithoutGamesAsPlayer1Input;
+  player2: UserCreateOneWithoutGamesAsPlayer2Input;
+  whosTurn: WhosTurn;
+}
+
+export interface UserCreateOneWithoutGamesAsPlayer2Input {
+  create?: UserCreateWithoutGamesAsPlayer2Input;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserCreateWithoutGamesAsPlayer2Input {
+  name: String;
+  gamesAsPlayer1?: GameCreateManyWithoutPlayer1Input;
+}
+
+export interface GameCreateManyWithoutPlayer1Input {
+  create?: GameCreateWithoutPlayer1Input[] | GameCreateWithoutPlayer1Input;
+  connect?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+}
+
+export interface GameCreateWithoutPlayer1Input {
+  player2: UserCreateOneWithoutGamesAsPlayer2Input;
+  gameRounds?: GameRoundCreateManyWithoutGameInput;
+  whosTurn: WhosTurn;
+}
+
+export interface SongAnswerCreateOneWithoutPlayer2SongQuestionInput {
+  create?: SongAnswerCreateWithoutPlayer2SongQuestionInput;
+  connect?: SongAnswerWhereUniqueInput;
+}
+
+export interface SongAnswerCreateWithoutPlayer2SongQuestionInput {
+  correct: Boolean;
+  guessedSong: SongCreateOneInput;
+  time: Int;
+  player1SongQuestion?: SongQuestionCreateOneWithoutPlayer1AnswerInput;
+}
+
+export interface SongQuestionCreateOneWithoutPlayer1AnswerInput {
+  create?: SongQuestionCreateWithoutPlayer1AnswerInput;
+  connect?: SongQuestionWhereUniqueInput;
+}
+
+export interface SongQuestionCreateWithoutPlayer1AnswerInput {
+  song: SongCreateOneInput;
+  player2Answer?: SongAnswerCreateOneWithoutPlayer2SongQuestionInput;
+  gameRound: GameRoundCreateOneWithoutSongQuestionsInput;
+}
+
+export interface GameUpdateInput {
+  player1?: UserUpdateOneRequiredWithoutGamesAsPlayer1Input;
+  player2?: UserUpdateOneRequiredWithoutGamesAsPlayer2Input;
+  gameRounds?: GameRoundUpdateManyWithoutGameInput;
+  whosTurn?: WhosTurn;
+}
+
+export interface UserUpdateOneRequiredWithoutGamesAsPlayer1Input {
+  create?: UserCreateWithoutGamesAsPlayer1Input;
+  update?: UserUpdateWithoutGamesAsPlayer1DataInput;
+  upsert?: UserUpsertWithoutGamesAsPlayer1Input;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserUpdateWithoutGamesAsPlayer1DataInput {
+  name?: String;
+  gamesAsPlayer2?: GameUpdateManyWithoutPlayer2Input;
+}
+
+export interface GameUpdateManyWithoutPlayer2Input {
+  create?: GameCreateWithoutPlayer2Input[] | GameCreateWithoutPlayer2Input;
+  delete?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  connect?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  disconnect?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  update?:
+    | GameUpdateWithWhereUniqueWithoutPlayer2Input[]
+    | GameUpdateWithWhereUniqueWithoutPlayer2Input;
+  upsert?:
+    | GameUpsertWithWhereUniqueWithoutPlayer2Input[]
+    | GameUpsertWithWhereUniqueWithoutPlayer2Input;
+  deleteMany?: GameScalarWhereInput[] | GameScalarWhereInput;
+  updateMany?:
+    | GameUpdateManyWithWhereNestedInput[]
+    | GameUpdateManyWithWhereNestedInput;
+}
+
+export interface GameUpdateWithWhereUniqueWithoutPlayer2Input {
+  where: GameWhereUniqueInput;
+  data: GameUpdateWithoutPlayer2DataInput;
+}
+
+export interface GameUpdateWithoutPlayer2DataInput {
+  player1?: UserUpdateOneRequiredWithoutGamesAsPlayer1Input;
+  gameRounds?: GameRoundUpdateManyWithoutGameInput;
+  whosTurn?: WhosTurn;
+}
+
+export interface GameRoundUpdateManyWithoutGameInput {
+  create?: GameRoundCreateWithoutGameInput[] | GameRoundCreateWithoutGameInput;
+  delete?: GameRoundWhereUniqueInput[] | GameRoundWhereUniqueInput;
+  connect?: GameRoundWhereUniqueInput[] | GameRoundWhereUniqueInput;
+  disconnect?: GameRoundWhereUniqueInput[] | GameRoundWhereUniqueInput;
+  update?:
+    | GameRoundUpdateWithWhereUniqueWithoutGameInput[]
+    | GameRoundUpdateWithWhereUniqueWithoutGameInput;
+  upsert?:
+    | GameRoundUpsertWithWhereUniqueWithoutGameInput[]
+    | GameRoundUpsertWithWhereUniqueWithoutGameInput;
+  deleteMany?: GameRoundScalarWhereInput[] | GameRoundScalarWhereInput;
+  updateMany?:
+    | GameRoundUpdateManyWithWhereNestedInput[]
+    | GameRoundUpdateManyWithWhereNestedInput;
+}
+
+export interface GameRoundUpdateWithWhereUniqueWithoutGameInput {
+  where: GameRoundWhereUniqueInput;
+  data: GameRoundUpdateWithoutGameDataInput;
+}
+
+export interface GameRoundUpdateWithoutGameDataInput {
+  status?: GameRoundStatus;
+  songQuestions?: SongQuestionUpdateManyWithoutGameRoundInput;
+}
+
+export interface SongQuestionUpdateManyWithoutGameRoundInput {
+  create?:
+    | SongQuestionCreateWithoutGameRoundInput[]
+    | SongQuestionCreateWithoutGameRoundInput;
+  delete?: SongQuestionWhereUniqueInput[] | SongQuestionWhereUniqueInput;
+  connect?: SongQuestionWhereUniqueInput[] | SongQuestionWhereUniqueInput;
+  disconnect?: SongQuestionWhereUniqueInput[] | SongQuestionWhereUniqueInput;
+  update?:
+    | SongQuestionUpdateWithWhereUniqueWithoutGameRoundInput[]
+    | SongQuestionUpdateWithWhereUniqueWithoutGameRoundInput;
+  upsert?:
+    | SongQuestionUpsertWithWhereUniqueWithoutGameRoundInput[]
+    | SongQuestionUpsertWithWhereUniqueWithoutGameRoundInput;
+  deleteMany?: SongQuestionScalarWhereInput[] | SongQuestionScalarWhereInput;
+}
+
+export interface SongQuestionUpdateWithWhereUniqueWithoutGameRoundInput {
+  where: SongQuestionWhereUniqueInput;
+  data: SongQuestionUpdateWithoutGameRoundDataInput;
+}
+
+export interface SongQuestionUpdateWithoutGameRoundDataInput {
+  song?: SongUpdateOneRequiredInput;
+  player1Answer?: SongAnswerUpdateOneWithoutPlayer1SongQuestionInput;
+  player2Answer?: SongAnswerUpdateOneWithoutPlayer2SongQuestionInput;
+}
+
+export interface SongUpdateOneRequiredInput {
+  create?: SongCreateInput;
+  update?: SongUpdateDataInput;
+  upsert?: SongUpsertNestedInput;
+  connect?: SongWhereUniqueInput;
+}
+
+export interface SongUpdateDataInput {
+  name?: String;
+  artist?: ArtistUpdateOneRequiredWithoutSongsInput;
+}
+
+export interface ArtistUpdateOneRequiredWithoutSongsInput {
+  create?: ArtistCreateWithoutSongsInput;
+  update?: ArtistUpdateWithoutSongsDataInput;
+  upsert?: ArtistUpsertWithoutSongsInput;
+  connect?: ArtistWhereUniqueInput;
+}
+
+export interface ArtistUpdateWithoutSongsDataInput {
+  name?: String;
+}
+
+export interface ArtistUpsertWithoutSongsInput {
+  update: ArtistUpdateWithoutSongsDataInput;
+  create: ArtistCreateWithoutSongsInput;
+}
+
+export interface SongUpsertNestedInput {
+  update: SongUpdateDataInput;
+  create: SongCreateInput;
+}
+
+export interface SongAnswerUpdateOneWithoutPlayer1SongQuestionInput {
+  create?: SongAnswerCreateWithoutPlayer1SongQuestionInput;
+  update?: SongAnswerUpdateWithoutPlayer1SongQuestionDataInput;
+  upsert?: SongAnswerUpsertWithoutPlayer1SongQuestionInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: SongAnswerWhereUniqueInput;
+}
+
+export interface SongAnswerUpdateWithoutPlayer1SongQuestionDataInput {
+  correct?: Boolean;
+  guessedSong?: SongUpdateOneRequiredInput;
+  time?: Int;
+  player2SongQuestion?: SongQuestionUpdateOneWithoutPlayer2AnswerInput;
+}
+
+export interface SongQuestionUpdateOneWithoutPlayer2AnswerInput {
+  create?: SongQuestionCreateWithoutPlayer2AnswerInput;
+  update?: SongQuestionUpdateWithoutPlayer2AnswerDataInput;
+  upsert?: SongQuestionUpsertWithoutPlayer2AnswerInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: SongQuestionWhereUniqueInput;
+}
+
+export interface SongQuestionUpdateWithoutPlayer2AnswerDataInput {
+  song?: SongUpdateOneRequiredInput;
+  player1Answer?: SongAnswerUpdateOneWithoutPlayer1SongQuestionInput;
+  gameRound?: GameRoundUpdateOneRequiredWithoutSongQuestionsInput;
+}
+
+export interface GameRoundUpdateOneRequiredWithoutSongQuestionsInput {
+  create?: GameRoundCreateWithoutSongQuestionsInput;
+  update?: GameRoundUpdateWithoutSongQuestionsDataInput;
+  upsert?: GameRoundUpsertWithoutSongQuestionsInput;
+  connect?: GameRoundWhereUniqueInput;
+}
+
+export interface GameRoundUpdateWithoutSongQuestionsDataInput {
+  status?: GameRoundStatus;
+  Game?: GameUpdateOneRequiredWithoutGameRoundsInput;
+}
+
+export interface GameUpdateOneRequiredWithoutGameRoundsInput {
+  create?: GameCreateWithoutGameRoundsInput;
+  update?: GameUpdateWithoutGameRoundsDataInput;
+  upsert?: GameUpsertWithoutGameRoundsInput;
+  connect?: GameWhereUniqueInput;
+}
+
+export interface GameUpdateWithoutGameRoundsDataInput {
+  player1?: UserUpdateOneRequiredWithoutGamesAsPlayer1Input;
+  player2?: UserUpdateOneRequiredWithoutGamesAsPlayer2Input;
+  whosTurn?: WhosTurn;
+}
+
+export interface UserUpdateOneRequiredWithoutGamesAsPlayer2Input {
+  create?: UserCreateWithoutGamesAsPlayer2Input;
+  update?: UserUpdateWithoutGamesAsPlayer2DataInput;
+  upsert?: UserUpsertWithoutGamesAsPlayer2Input;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserUpdateWithoutGamesAsPlayer2DataInput {
+  name?: String;
+  gamesAsPlayer1?: GameUpdateManyWithoutPlayer1Input;
+}
+
+export interface GameUpdateManyWithoutPlayer1Input {
+  create?: GameCreateWithoutPlayer1Input[] | GameCreateWithoutPlayer1Input;
+  delete?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  connect?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  disconnect?: GameWhereUniqueInput[] | GameWhereUniqueInput;
+  update?:
+    | GameUpdateWithWhereUniqueWithoutPlayer1Input[]
+    | GameUpdateWithWhereUniqueWithoutPlayer1Input;
+  upsert?:
+    | GameUpsertWithWhereUniqueWithoutPlayer1Input[]
+    | GameUpsertWithWhereUniqueWithoutPlayer1Input;
+  deleteMany?: GameScalarWhereInput[] | GameScalarWhereInput;
+  updateMany?:
+    | GameUpdateManyWithWhereNestedInput[]
+    | GameUpdateManyWithWhereNestedInput;
+}
+
+export interface GameUpdateWithWhereUniqueWithoutPlayer1Input {
+  where: GameWhereUniqueInput;
+  data: GameUpdateWithoutPlayer1DataInput;
+}
+
+export interface GameUpdateWithoutPlayer1DataInput {
+  player2?: UserUpdateOneRequiredWithoutGamesAsPlayer2Input;
+  gameRounds?: GameRoundUpdateManyWithoutGameInput;
+  whosTurn?: WhosTurn;
+}
+
+export interface GameUpsertWithWhereUniqueWithoutPlayer1Input {
+  where: GameWhereUniqueInput;
+  update: GameUpdateWithoutPlayer1DataInput;
+  create: GameCreateWithoutPlayer1Input;
+}
+
+export interface GameScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  whosTurn?: WhosTurn;
+  whosTurn_not?: WhosTurn;
+  whosTurn_in?: WhosTurn[] | WhosTurn;
+  whosTurn_not_in?: WhosTurn[] | WhosTurn;
+  AND?: GameScalarWhereInput[] | GameScalarWhereInput;
+  OR?: GameScalarWhereInput[] | GameScalarWhereInput;
+  NOT?: GameScalarWhereInput[] | GameScalarWhereInput;
+}
+
+export interface GameUpdateManyWithWhereNestedInput {
+  where: GameScalarWhereInput;
+  data: GameUpdateManyDataInput;
+}
+
+export interface GameUpdateManyDataInput {
+  whosTurn?: WhosTurn;
+}
+
+export interface UserUpsertWithoutGamesAsPlayer2Input {
+  update: UserUpdateWithoutGamesAsPlayer2DataInput;
+  create: UserCreateWithoutGamesAsPlayer2Input;
+}
+
+export interface GameUpsertWithoutGameRoundsInput {
+  update: GameUpdateWithoutGameRoundsDataInput;
+  create: GameCreateWithoutGameRoundsInput;
+}
+
+export interface GameRoundUpsertWithoutSongQuestionsInput {
+  update: GameRoundUpdateWithoutSongQuestionsDataInput;
+  create: GameRoundCreateWithoutSongQuestionsInput;
+}
+
+export interface SongQuestionUpsertWithoutPlayer2AnswerInput {
+  update: SongQuestionUpdateWithoutPlayer2AnswerDataInput;
+  create: SongQuestionCreateWithoutPlayer2AnswerInput;
+}
+
+export interface SongAnswerUpsertWithoutPlayer1SongQuestionInput {
+  update: SongAnswerUpdateWithoutPlayer1SongQuestionDataInput;
+  create: SongAnswerCreateWithoutPlayer1SongQuestionInput;
+}
+
+export interface SongAnswerUpdateOneWithoutPlayer2SongQuestionInput {
+  create?: SongAnswerCreateWithoutPlayer2SongQuestionInput;
+  update?: SongAnswerUpdateWithoutPlayer2SongQuestionDataInput;
+  upsert?: SongAnswerUpsertWithoutPlayer2SongQuestionInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: SongAnswerWhereUniqueInput;
+}
+
+export interface SongAnswerUpdateWithoutPlayer2SongQuestionDataInput {
+  correct?: Boolean;
+  guessedSong?: SongUpdateOneRequiredInput;
+  time?: Int;
+  player1SongQuestion?: SongQuestionUpdateOneWithoutPlayer1AnswerInput;
+}
+
+export interface SongQuestionUpdateOneWithoutPlayer1AnswerInput {
+  create?: SongQuestionCreateWithoutPlayer1AnswerInput;
+  update?: SongQuestionUpdateWithoutPlayer1AnswerDataInput;
+  upsert?: SongQuestionUpsertWithoutPlayer1AnswerInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: SongQuestionWhereUniqueInput;
+}
+
+export interface SongQuestionUpdateWithoutPlayer1AnswerDataInput {
+  song?: SongUpdateOneRequiredInput;
+  player2Answer?: SongAnswerUpdateOneWithoutPlayer2SongQuestionInput;
+  gameRound?: GameRoundUpdateOneRequiredWithoutSongQuestionsInput;
+}
+
+export interface SongQuestionUpsertWithoutPlayer1AnswerInput {
+  update: SongQuestionUpdateWithoutPlayer1AnswerDataInput;
+  create: SongQuestionCreateWithoutPlayer1AnswerInput;
+}
+
+export interface SongAnswerUpsertWithoutPlayer2SongQuestionInput {
+  update: SongAnswerUpdateWithoutPlayer2SongQuestionDataInput;
+  create: SongAnswerCreateWithoutPlayer2SongQuestionInput;
+}
+
+export interface SongQuestionUpsertWithWhereUniqueWithoutGameRoundInput {
+  where: SongQuestionWhereUniqueInput;
+  update: SongQuestionUpdateWithoutGameRoundDataInput;
+  create: SongQuestionCreateWithoutGameRoundInput;
+}
+
+export interface SongQuestionScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  AND?: SongQuestionScalarWhereInput[] | SongQuestionScalarWhereInput;
+  OR?: SongQuestionScalarWhereInput[] | SongQuestionScalarWhereInput;
+  NOT?: SongQuestionScalarWhereInput[] | SongQuestionScalarWhereInput;
+}
+
+export interface GameRoundUpsertWithWhereUniqueWithoutGameInput {
+  where: GameRoundWhereUniqueInput;
+  update: GameRoundUpdateWithoutGameDataInput;
+  create: GameRoundCreateWithoutGameInput;
+}
+
+export interface GameRoundScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  status?: GameRoundStatus;
+  status_not?: GameRoundStatus;
+  status_in?: GameRoundStatus[] | GameRoundStatus;
+  status_not_in?: GameRoundStatus[] | GameRoundStatus;
+  AND?: GameRoundScalarWhereInput[] | GameRoundScalarWhereInput;
+  OR?: GameRoundScalarWhereInput[] | GameRoundScalarWhereInput;
+  NOT?: GameRoundScalarWhereInput[] | GameRoundScalarWhereInput;
+}
+
+export interface GameRoundUpdateManyWithWhereNestedInput {
+  where: GameRoundScalarWhereInput;
+  data: GameRoundUpdateManyDataInput;
+}
+
+export interface GameRoundUpdateManyDataInput {
+  status?: GameRoundStatus;
+}
+
+export interface GameUpsertWithWhereUniqueWithoutPlayer2Input {
+  where: GameWhereUniqueInput;
+  update: GameUpdateWithoutPlayer2DataInput;
+  create: GameCreateWithoutPlayer2Input;
+}
+
+export interface UserUpsertWithoutGamesAsPlayer1Input {
+  update: UserUpdateWithoutGamesAsPlayer1DataInput;
+  create: UserCreateWithoutGamesAsPlayer1Input;
+}
+
+export interface GameUpdateManyMutationInput {
+  whosTurn?: WhosTurn;
+}
+
+export interface GameRoundCreateInput {
+  status: GameRoundStatus;
+  songQuestions?: SongQuestionCreateManyWithoutGameRoundInput;
+  Game: GameCreateOneWithoutGameRoundsInput;
+}
+
+export interface GameRoundUpdateInput {
+  status?: GameRoundStatus;
+  songQuestions?: SongQuestionUpdateManyWithoutGameRoundInput;
+  Game?: GameUpdateOneRequiredWithoutGameRoundsInput;
+}
+
+export interface GameRoundUpdateManyMutationInput {
+  status?: GameRoundStatus;
+}
+
+export interface SongUpdateInput {
+  name?: String;
+  artist?: ArtistUpdateOneRequiredWithoutSongsInput;
+}
+
+export interface SongUpdateManyMutationInput {
+  name?: String;
+}
+
+export interface SongAnswerCreateInput {
+  correct: Boolean;
+  guessedSong: SongCreateOneInput;
+  time: Int;
+  player1SongQuestion?: SongQuestionCreateOneWithoutPlayer1AnswerInput;
+  player2SongQuestion?: SongQuestionCreateOneWithoutPlayer2AnswerInput;
+}
+
+export interface SongAnswerUpdateInput {
+  correct?: Boolean;
+  guessedSong?: SongUpdateOneRequiredInput;
+  time?: Int;
+  player1SongQuestion?: SongQuestionUpdateOneWithoutPlayer1AnswerInput;
+  player2SongQuestion?: SongQuestionUpdateOneWithoutPlayer2AnswerInput;
+}
+
+export interface SongAnswerUpdateManyMutationInput {
+  correct?: Boolean;
+  time?: Int;
+}
+
+export interface SongQuestionCreateInput {
+  song: SongCreateOneInput;
+  player1Answer?: SongAnswerCreateOneWithoutPlayer1SongQuestionInput;
+  player2Answer?: SongAnswerCreateOneWithoutPlayer2SongQuestionInput;
+  gameRound: GameRoundCreateOneWithoutSongQuestionsInput;
+}
+
+export interface SongQuestionUpdateInput {
+  song?: SongUpdateOneRequiredInput;
+  player1Answer?: SongAnswerUpdateOneWithoutPlayer1SongQuestionInput;
+  player2Answer?: SongAnswerUpdateOneWithoutPlayer2SongQuestionInput;
+  gameRound?: GameRoundUpdateOneRequiredWithoutSongQuestionsInput;
+}
+
 export interface UserCreateInput {
   name: String;
+  gamesAsPlayer1?: GameCreateManyWithoutPlayer1Input;
+  gamesAsPlayer2?: GameCreateManyWithoutPlayer2Input;
 }
 
 export interface UserUpdateInput {
   name?: String;
+  gamesAsPlayer1?: GameUpdateManyWithoutPlayer1Input;
+  gamesAsPlayer2?: GameUpdateManyWithoutPlayer2Input;
 }
 
 export interface UserUpdateManyMutationInput {
   name?: String;
+}
+
+export interface ArtistSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ArtistWhereInput;
+  AND?: ArtistSubscriptionWhereInput[] | ArtistSubscriptionWhereInput;
+  OR?: ArtistSubscriptionWhereInput[] | ArtistSubscriptionWhereInput;
+  NOT?: ArtistSubscriptionWhereInput[] | ArtistSubscriptionWhereInput;
+}
+
+export interface GameSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: GameWhereInput;
+  AND?: GameSubscriptionWhereInput[] | GameSubscriptionWhereInput;
+  OR?: GameSubscriptionWhereInput[] | GameSubscriptionWhereInput;
+  NOT?: GameSubscriptionWhereInput[] | GameSubscriptionWhereInput;
+}
+
+export interface GameRoundSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: GameRoundWhereInput;
+  AND?: GameRoundSubscriptionWhereInput[] | GameRoundSubscriptionWhereInput;
+  OR?: GameRoundSubscriptionWhereInput[] | GameRoundSubscriptionWhereInput;
+  NOT?: GameRoundSubscriptionWhereInput[] | GameRoundSubscriptionWhereInput;
+}
+
+export interface SongSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: SongWhereInput;
+  AND?: SongSubscriptionWhereInput[] | SongSubscriptionWhereInput;
+  OR?: SongSubscriptionWhereInput[] | SongSubscriptionWhereInput;
+  NOT?: SongSubscriptionWhereInput[] | SongSubscriptionWhereInput;
+}
+
+export interface SongAnswerSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: SongAnswerWhereInput;
+  AND?: SongAnswerSubscriptionWhereInput[] | SongAnswerSubscriptionWhereInput;
+  OR?: SongAnswerSubscriptionWhereInput[] | SongAnswerSubscriptionWhereInput;
+  NOT?: SongAnswerSubscriptionWhereInput[] | SongAnswerSubscriptionWhereInput;
+}
+
+export interface SongQuestionSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: SongQuestionWhereInput;
+  AND?:
+    | SongQuestionSubscriptionWhereInput[]
+    | SongQuestionSubscriptionWhereInput;
+  OR?:
+    | SongQuestionSubscriptionWhereInput[]
+    | SongQuestionSubscriptionWhereInput;
+  NOT?:
+    | SongQuestionSubscriptionWhereInput[]
+    | SongQuestionSubscriptionWhereInput;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -176,42 +1499,79 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface User {
+export interface Artist {
   id: ID_Output;
   name: String;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
+export interface ArtistPromise extends Promise<Artist>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  songs: <T = FragmentableArray<Song>>(args?: {
+    where?: SongWhereInput;
+    orderBy?: SongOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
+export interface ArtistSubscription
+  extends Promise<AsyncIterator<Artist>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  songs: <T = Promise<AsyncIterator<SongSubscription>>>(args?: {
+    where?: SongWhereInput;
+    orderBy?: SongOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
-export interface UserConnection {
+export interface Song {
+  id: ID_Output;
+  name: String;
+}
+
+export interface SongPromise extends Promise<Song>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  artist: <T = ArtistPromise>() => T;
+}
+
+export interface SongSubscription
+  extends Promise<AsyncIterator<Song>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  artist: <T = ArtistSubscription>() => T;
+}
+
+export interface ArtistConnection {
   pageInfo: PageInfo;
-  edges: UserEdge[];
+  edges: ArtistEdge[];
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface ArtistConnectionPromise
+  extends Promise<ArtistConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
+  edges: <T = FragmentableArray<ArtistEdge>>() => T;
+  aggregate: <T = AggregateArtistPromise>() => T;
 }
 
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
+export interface ArtistConnectionSubscription
+  extends Promise<AsyncIterator<ArtistConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ArtistEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateArtistSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -235,6 +1595,515 @@ export interface PageInfoSubscription
   hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
   startCursor: () => Promise<AsyncIterator<String>>;
   endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ArtistEdge {
+  node: Artist;
+  cursor: String;
+}
+
+export interface ArtistEdgePromise extends Promise<ArtistEdge>, Fragmentable {
+  node: <T = ArtistPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ArtistEdgeSubscription
+  extends Promise<AsyncIterator<ArtistEdge>>,
+    Fragmentable {
+  node: <T = ArtistSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateArtist {
+  count: Int;
+}
+
+export interface AggregateArtistPromise
+  extends Promise<AggregateArtist>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateArtistSubscription
+  extends Promise<AsyncIterator<AggregateArtist>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Game {
+  id: ID_Output;
+  whosTurn: WhosTurn;
+}
+
+export interface GamePromise extends Promise<Game>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  player1: <T = UserPromise>() => T;
+  player2: <T = UserPromise>() => T;
+  gameRounds: <T = FragmentableArray<GameRound>>(args?: {
+    where?: GameRoundWhereInput;
+    orderBy?: GameRoundOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  whosTurn: () => Promise<WhosTurn>;
+}
+
+export interface GameSubscription
+  extends Promise<AsyncIterator<Game>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  player1: <T = UserSubscription>() => T;
+  player2: <T = UserSubscription>() => T;
+  gameRounds: <T = Promise<AsyncIterator<GameRoundSubscription>>>(args?: {
+    where?: GameRoundWhereInput;
+    orderBy?: GameRoundOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  whosTurn: () => Promise<AsyncIterator<WhosTurn>>;
+}
+
+export interface User {
+  id: ID_Output;
+  name: String;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  gamesAsPlayer1: <T = FragmentableArray<Game>>(args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  gamesAsPlayer2: <T = FragmentableArray<Game>>(args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  gamesAsPlayer1: <T = Promise<AsyncIterator<GameSubscription>>>(args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  gamesAsPlayer2: <T = Promise<AsyncIterator<GameSubscription>>>(args?: {
+    where?: GameWhereInput;
+    orderBy?: GameOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface GameRound {
+  id: ID_Output;
+  status: GameRoundStatus;
+}
+
+export interface GameRoundPromise extends Promise<GameRound>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  status: () => Promise<GameRoundStatus>;
+  songQuestions: <T = FragmentableArray<SongQuestion>>(args?: {
+    where?: SongQuestionWhereInput;
+    orderBy?: SongQuestionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  Game: <T = GamePromise>() => T;
+}
+
+export interface GameRoundSubscription
+  extends Promise<AsyncIterator<GameRound>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  status: () => Promise<AsyncIterator<GameRoundStatus>>;
+  songQuestions: <T = Promise<AsyncIterator<SongQuestionSubscription>>>(args?: {
+    where?: SongQuestionWhereInput;
+    orderBy?: SongQuestionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  Game: <T = GameSubscription>() => T;
+}
+
+export interface SongQuestion {
+  id: ID_Output;
+}
+
+export interface SongQuestionPromise
+  extends Promise<SongQuestion>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  song: <T = SongPromise>() => T;
+  player1Answer: <T = SongAnswerPromise>() => T;
+  player2Answer: <T = SongAnswerPromise>() => T;
+  gameRound: <T = GameRoundPromise>() => T;
+}
+
+export interface SongQuestionSubscription
+  extends Promise<AsyncIterator<SongQuestion>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  song: <T = SongSubscription>() => T;
+  player1Answer: <T = SongAnswerSubscription>() => T;
+  player2Answer: <T = SongAnswerSubscription>() => T;
+  gameRound: <T = GameRoundSubscription>() => T;
+}
+
+export interface SongAnswer {
+  id: ID_Output;
+  correct: Boolean;
+  time: Int;
+}
+
+export interface SongAnswerPromise extends Promise<SongAnswer>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  correct: () => Promise<Boolean>;
+  guessedSong: <T = SongPromise>() => T;
+  time: () => Promise<Int>;
+  player1SongQuestion: <T = SongQuestionPromise>() => T;
+  player2SongQuestion: <T = SongQuestionPromise>() => T;
+}
+
+export interface SongAnswerSubscription
+  extends Promise<AsyncIterator<SongAnswer>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  correct: () => Promise<AsyncIterator<Boolean>>;
+  guessedSong: <T = SongSubscription>() => T;
+  time: () => Promise<AsyncIterator<Int>>;
+  player1SongQuestion: <T = SongQuestionSubscription>() => T;
+  player2SongQuestion: <T = SongQuestionSubscription>() => T;
+}
+
+export interface GameConnection {
+  pageInfo: PageInfo;
+  edges: GameEdge[];
+}
+
+export interface GameConnectionPromise
+  extends Promise<GameConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<GameEdge>>() => T;
+  aggregate: <T = AggregateGamePromise>() => T;
+}
+
+export interface GameConnectionSubscription
+  extends Promise<AsyncIterator<GameConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<GameEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateGameSubscription>() => T;
+}
+
+export interface GameEdge {
+  node: Game;
+  cursor: String;
+}
+
+export interface GameEdgePromise extends Promise<GameEdge>, Fragmentable {
+  node: <T = GamePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface GameEdgeSubscription
+  extends Promise<AsyncIterator<GameEdge>>,
+    Fragmentable {
+  node: <T = GameSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateGame {
+  count: Int;
+}
+
+export interface AggregateGamePromise
+  extends Promise<AggregateGame>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateGameSubscription
+  extends Promise<AsyncIterator<AggregateGame>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface GameRoundConnection {
+  pageInfo: PageInfo;
+  edges: GameRoundEdge[];
+}
+
+export interface GameRoundConnectionPromise
+  extends Promise<GameRoundConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<GameRoundEdge>>() => T;
+  aggregate: <T = AggregateGameRoundPromise>() => T;
+}
+
+export interface GameRoundConnectionSubscription
+  extends Promise<AsyncIterator<GameRoundConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<GameRoundEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateGameRoundSubscription>() => T;
+}
+
+export interface GameRoundEdge {
+  node: GameRound;
+  cursor: String;
+}
+
+export interface GameRoundEdgePromise
+  extends Promise<GameRoundEdge>,
+    Fragmentable {
+  node: <T = GameRoundPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface GameRoundEdgeSubscription
+  extends Promise<AsyncIterator<GameRoundEdge>>,
+    Fragmentable {
+  node: <T = GameRoundSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateGameRound {
+  count: Int;
+}
+
+export interface AggregateGameRoundPromise
+  extends Promise<AggregateGameRound>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateGameRoundSubscription
+  extends Promise<AsyncIterator<AggregateGameRound>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SongConnection {
+  pageInfo: PageInfo;
+  edges: SongEdge[];
+}
+
+export interface SongConnectionPromise
+  extends Promise<SongConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SongEdge>>() => T;
+  aggregate: <T = AggregateSongPromise>() => T;
+}
+
+export interface SongConnectionSubscription
+  extends Promise<AsyncIterator<SongConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SongEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSongSubscription>() => T;
+}
+
+export interface SongEdge {
+  node: Song;
+  cursor: String;
+}
+
+export interface SongEdgePromise extends Promise<SongEdge>, Fragmentable {
+  node: <T = SongPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SongEdgeSubscription
+  extends Promise<AsyncIterator<SongEdge>>,
+    Fragmentable {
+  node: <T = SongSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateSong {
+  count: Int;
+}
+
+export interface AggregateSongPromise
+  extends Promise<AggregateSong>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSongSubscription
+  extends Promise<AsyncIterator<AggregateSong>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SongAnswerConnection {
+  pageInfo: PageInfo;
+  edges: SongAnswerEdge[];
+}
+
+export interface SongAnswerConnectionPromise
+  extends Promise<SongAnswerConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SongAnswerEdge>>() => T;
+  aggregate: <T = AggregateSongAnswerPromise>() => T;
+}
+
+export interface SongAnswerConnectionSubscription
+  extends Promise<AsyncIterator<SongAnswerConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SongAnswerEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSongAnswerSubscription>() => T;
+}
+
+export interface SongAnswerEdge {
+  node: SongAnswer;
+  cursor: String;
+}
+
+export interface SongAnswerEdgePromise
+  extends Promise<SongAnswerEdge>,
+    Fragmentable {
+  node: <T = SongAnswerPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SongAnswerEdgeSubscription
+  extends Promise<AsyncIterator<SongAnswerEdge>>,
+    Fragmentable {
+  node: <T = SongAnswerSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateSongAnswer {
+  count: Int;
+}
+
+export interface AggregateSongAnswerPromise
+  extends Promise<AggregateSongAnswer>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSongAnswerSubscription
+  extends Promise<AsyncIterator<AggregateSongAnswer>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SongQuestionConnection {
+  pageInfo: PageInfo;
+  edges: SongQuestionEdge[];
+}
+
+export interface SongQuestionConnectionPromise
+  extends Promise<SongQuestionConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SongQuestionEdge>>() => T;
+  aggregate: <T = AggregateSongQuestionPromise>() => T;
+}
+
+export interface SongQuestionConnectionSubscription
+  extends Promise<AsyncIterator<SongQuestionConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SongQuestionEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSongQuestionSubscription>() => T;
+}
+
+export interface SongQuestionEdge {
+  node: SongQuestion;
+  cursor: String;
+}
+
+export interface SongQuestionEdgePromise
+  extends Promise<SongQuestionEdge>,
+    Fragmentable {
+  node: <T = SongQuestionPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SongQuestionEdgeSubscription
+  extends Promise<AsyncIterator<SongQuestionEdge>>,
+    Fragmentable {
+  node: <T = SongQuestionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateSongQuestion {
+  count: Int;
+}
+
+export interface AggregateSongQuestionPromise
+  extends Promise<AggregateSongQuestion>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSongQuestionSubscription
+  extends Promise<AsyncIterator<AggregateSongQuestion>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 export interface UserEdge {
@@ -284,6 +2153,270 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface ArtistSubscriptionPayload {
+  mutation: MutationType;
+  node: Artist;
+  updatedFields: String[];
+  previousValues: ArtistPreviousValues;
+}
+
+export interface ArtistSubscriptionPayloadPromise
+  extends Promise<ArtistSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ArtistPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ArtistPreviousValuesPromise>() => T;
+}
+
+export interface ArtistSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ArtistSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ArtistSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ArtistPreviousValuesSubscription>() => T;
+}
+
+export interface ArtistPreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface ArtistPreviousValuesPromise
+  extends Promise<ArtistPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface ArtistPreviousValuesSubscription
+  extends Promise<AsyncIterator<ArtistPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface GameSubscriptionPayload {
+  mutation: MutationType;
+  node: Game;
+  updatedFields: String[];
+  previousValues: GamePreviousValues;
+}
+
+export interface GameSubscriptionPayloadPromise
+  extends Promise<GameSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = GamePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = GamePreviousValuesPromise>() => T;
+}
+
+export interface GameSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<GameSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = GameSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = GamePreviousValuesSubscription>() => T;
+}
+
+export interface GamePreviousValues {
+  id: ID_Output;
+  whosTurn: WhosTurn;
+}
+
+export interface GamePreviousValuesPromise
+  extends Promise<GamePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  whosTurn: () => Promise<WhosTurn>;
+}
+
+export interface GamePreviousValuesSubscription
+  extends Promise<AsyncIterator<GamePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  whosTurn: () => Promise<AsyncIterator<WhosTurn>>;
+}
+
+export interface GameRoundSubscriptionPayload {
+  mutation: MutationType;
+  node: GameRound;
+  updatedFields: String[];
+  previousValues: GameRoundPreviousValues;
+}
+
+export interface GameRoundSubscriptionPayloadPromise
+  extends Promise<GameRoundSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = GameRoundPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = GameRoundPreviousValuesPromise>() => T;
+}
+
+export interface GameRoundSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<GameRoundSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = GameRoundSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = GameRoundPreviousValuesSubscription>() => T;
+}
+
+export interface GameRoundPreviousValues {
+  id: ID_Output;
+  status: GameRoundStatus;
+}
+
+export interface GameRoundPreviousValuesPromise
+  extends Promise<GameRoundPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  status: () => Promise<GameRoundStatus>;
+}
+
+export interface GameRoundPreviousValuesSubscription
+  extends Promise<AsyncIterator<GameRoundPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  status: () => Promise<AsyncIterator<GameRoundStatus>>;
+}
+
+export interface SongSubscriptionPayload {
+  mutation: MutationType;
+  node: Song;
+  updatedFields: String[];
+  previousValues: SongPreviousValues;
+}
+
+export interface SongSubscriptionPayloadPromise
+  extends Promise<SongSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SongPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SongPreviousValuesPromise>() => T;
+}
+
+export interface SongSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SongSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SongSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SongPreviousValuesSubscription>() => T;
+}
+
+export interface SongPreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface SongPreviousValuesPromise
+  extends Promise<SongPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface SongPreviousValuesSubscription
+  extends Promise<AsyncIterator<SongPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SongAnswerSubscriptionPayload {
+  mutation: MutationType;
+  node: SongAnswer;
+  updatedFields: String[];
+  previousValues: SongAnswerPreviousValues;
+}
+
+export interface SongAnswerSubscriptionPayloadPromise
+  extends Promise<SongAnswerSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SongAnswerPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SongAnswerPreviousValuesPromise>() => T;
+}
+
+export interface SongAnswerSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SongAnswerSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SongAnswerSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SongAnswerPreviousValuesSubscription>() => T;
+}
+
+export interface SongAnswerPreviousValues {
+  id: ID_Output;
+  correct: Boolean;
+  time: Int;
+}
+
+export interface SongAnswerPreviousValuesPromise
+  extends Promise<SongAnswerPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  correct: () => Promise<Boolean>;
+  time: () => Promise<Int>;
+}
+
+export interface SongAnswerPreviousValuesSubscription
+  extends Promise<AsyncIterator<SongAnswerPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  correct: () => Promise<AsyncIterator<Boolean>>;
+  time: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SongQuestionSubscriptionPayload {
+  mutation: MutationType;
+  node: SongQuestion;
+  updatedFields: String[];
+  previousValues: SongQuestionPreviousValues;
+}
+
+export interface SongQuestionSubscriptionPayloadPromise
+  extends Promise<SongQuestionSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SongQuestionPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SongQuestionPreviousValuesPromise>() => T;
+}
+
+export interface SongQuestionSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SongQuestionSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SongQuestionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SongQuestionPreviousValuesSubscription>() => T;
+}
+
+export interface SongQuestionPreviousValues {
+  id: ID_Output;
+}
+
+export interface SongQuestionPreviousValuesPromise
+  extends Promise<SongQuestionPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+}
+
+export interface SongQuestionPreviousValuesSubscription
+  extends Promise<AsyncIterator<SongQuestionPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -359,7 +2492,39 @@ export type Long = string;
 
 export const models: Model[] = [
   {
+    name: "Artist",
+    embedded: false
+  },
+  {
+    name: "Game",
+    embedded: false
+  },
+  {
+    name: "GameRound",
+    embedded: false
+  },
+  {
+    name: "GameRoundStatus",
+    embedded: false
+  },
+  {
+    name: "Song",
+    embedded: false
+  },
+  {
+    name: "SongAnswer",
+    embedded: false
+  },
+  {
+    name: "SongQuestion",
+    embedded: false
+  },
+  {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "WhosTurn",
     embedded: false
   }
 ];

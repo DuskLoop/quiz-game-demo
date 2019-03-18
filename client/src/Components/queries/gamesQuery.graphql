@@ -1,0 +1,41 @@
+query GamesQuery {
+  games {
+    id
+    player1 {
+      id
+      name
+    }
+    player2 {
+      id
+      name
+    }
+    whosTurn
+    gameRounds {
+      id
+      status
+      songQuestions {
+        id
+        player1Answer {
+          id
+          guessedSong {
+            id
+            name
+          }
+        }
+        player2Answer {
+          id
+          guessedSong {
+            id
+            name
+          }
+        }
+        song {
+          id
+        }
+        gameRound {
+          id
+        }
+      }
+    }
+  }
+}

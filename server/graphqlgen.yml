@@ -5,6 +5,7 @@ context: ./src/types.ts:Context
 models:
   files:
     - ./generated/prisma-client/index.ts
+    - ./src/generated/modelDefinitions.ts
 output: ./src/generated/graphqlgen.ts
 resolver-scaffolding:
   output: ./src/generated/tmp-resolvers/

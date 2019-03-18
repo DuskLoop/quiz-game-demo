@@ -4,6 +4,7 @@
     "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true
   }
 }

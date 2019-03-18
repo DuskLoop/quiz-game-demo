@@ -6,8 +6,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import { ApolloLink } from "apollo-link";
-import { Query } from "react-apollo";
-import { users } from "./__generated__/users";
+import Game from "./Game";
 
 const query = loader("./Query.graphql");
 
@@ -34,22 +33,7 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <div>Hej</div>
-        <ul>
-          <Query<users> query={query}>
-            {({ loading, error, data }) => {
-              if (loading) {
-                return "Loading...";
-              } else if (error || !data) {
-                return "Error";
-              } else {
-                return data.users.map((user: any) => (
-                  <li key={user.id}>{user.name}</li>
-                ));
-              }
-            }}
-          </Query>
-        </ul>
+        <Game />
       </ApolloProvider>
     );
   }
