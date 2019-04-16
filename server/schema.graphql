@@ -1,19 +1,25 @@
+scalar Date
+scalar DateTime
+
 type Query {
   games: [Game!]!
   users: [User!]!
   song(id: ID!): Song
-  gameRound: GameRound!
+  gameRound(id: ID!): GameRound!
+  songQuestion(questionId: ID!): SongQuestion!
 }
 
 type Mutation {
   startGame(player1Id: ID!, player2Id: ID!): Game!
   startNewGameRound(gameId: ID!): GameRound!
   createUser(name: String!): User!
-  submitAnswer(questionID: ID!, songID: ID!): SongQuestion!
+  startQuestion(questionId: ID!): SongQuestion!
+  submitAnswer(questionId: ID!, songID: ID!): SongQuestion!
+  resetQuestion(questionID: ID!): SongQuestion!
 }
 
 type Subscription {
-  startRound: SongQuestion!
+  roundUpdates(roundId: ID!): SongQuestion!
 }
 
 type User {
@@ -50,19 +56,19 @@ type GameRound {
 
 type SongQuestion {
   id: ID!
-  song: HiddenSong!
-  songAlternatives: [Song!]!
-  player1Answer: SongAnswer
-  player2Answer: SongAnswer
+  song: Song!
+  answers: [SongAnswer!]!
   gameRound: GameRound!
+  songAlternatives: [Song!]!
 }
 
 type SongAnswer {
   id: ID!
-  correct: Boolean!
+  startTime: DateTime!
+  user: User!
   guessedSong: Song
   time: Int
-  songQuestion: SongQuestion!
+  question: SongQuestion!
 }
 
 type HiddenSong {

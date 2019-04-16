@@ -1,0 +1,1 @@
+{"version":3,"file":"Artist.js","sourceRoot":"","sources":["../../../src/resolvers/Artist.ts"],"names":[],"mappings":";;;;;;;;;;;;;AAAA,sDAA0D;AAE7C,QAAA,MAAM,gBACd,4BAAe,CAAC,gBAAgB,IAEnC,KAAK,EAAE,UAAC,MAAM,EAAE,IAAI,EAAE,GAAG;QACvB,OAAO,GAAG,CAAC,MAAM,CAAC,MAAM,CAAC,EAAE,EAAE,EAAE,MAAM,CAAC,EAAE,EAAE,CAAC,CAAC,KAAK,EAAE,CAAC;IACtD,CAAC,IACD"}

@@ -1,0 +1,8 @@
+mutation resetQuestion($questionId: ID!) {
+  resetQuestion(questionID: $questionId) {
+    id
+    answers {
+      id
+    }
+  }
+}

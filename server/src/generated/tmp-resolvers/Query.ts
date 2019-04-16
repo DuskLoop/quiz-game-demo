@@ -16,5 +16,8 @@ export const Query: QueryResolvers.Type = {
   },
   gameRound: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
+  },
+  songQuestion: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
   }
 };

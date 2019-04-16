@@ -1,38 +1,253 @@
 import React, { useState } from "react";
 import useUsername from "./hooks/useUsername";
 import UserInfo from "./UserInfo";
-import GameControls from "./GameControls";
-import GameInfo from "./GameInfo";
-import GameSelect from "./GameSelect";
-import { GamesQuery_games } from "./queries/__generated__/GamesQuery";
-import WebsocketTest from "./WebsocketTest";
-import GameRoundSelect from "./GameRoundSelect";
-import { gameRound_gameRound } from "./queries/__generated__/gameRound";
+import { Query, Mutation, MutationFn, Subscription } from "react-apollo";
+import { loader } from "graphql.macro";
+import { Games } from "./__generated__/Games";
+import {
+  submitAnswer,
+  submitAnswerVariables
+} from "./Mutations/__generated__/submitAnswer";
+import {
+  resetQuestion,
+  resetQuestionVariables
+} from "./Mutations/__generated__/resetQuestion";
+import {
+  startQuestion,
+  startQuestionVariables
+} from "./Mutations/__generated__/startQuestion";
+import {
+  roundUpdates,
+  roundUpdatesVariables
+} from "./Subscriptions/__generated__/roundUpdates";
+import {
+  songQuestion,
+  songQuestion_songQuestion as Question,
+  songQuestionVariables
+} from "./Queries/__generated__/songQuestion";
+import { useTimer } from "./hooks/useTimer";
 
-interface IProps {}
+const gamesQuery = loader("./Games.graphql");
+const questionQuery = loader("./Queries/songQuestion.graphql");
+const startQuestionMutation = loader("./Mutations/StartQuestion.graphql");
+const submitAnswerMutation = loader("./Mutations/SubmitAnswer.graphql");
+const resetQuestionMutation = loader("./Mutations/ResetQuestion.graphql");
+const roundUpdatesSubscription = loader("./Subscriptions/roundUpdates.graphql");
+
+interface IProps {
+  submitAnswer: MutationFn<submitAnswer, submitAnswerVariables>;
+  resetQuestion: MutationFn<resetQuestion, resetQuestionVariables>;
+  startQuestion: MutationFn<startQuestion, startQuestionVariables>;
+}
 
 const Game: React.FunctionComponent<IProps> = props => {
-  const [activeGame, setActiveGame] = useState<GamesQuery_games | undefined>(
-    undefined
-  );
-  const [activeRound, setActiveRound] = useState<
-    gameRound_gameRound | undefined
-  >(undefined);
   const username = useUsername();
-
-  const playRound = (round: gameRound_gameRound) => {
-    console.log("Start game");
-  };
+  const [selectedQuestionId, setSelectedQuestionId] = useState<
+    string | undefined
+  >(undefined);
+  const timer = useTimer();
 
   return (
     <div>
       <UserInfo username={username} />
-      {/* <GameSelect setActiveGame={setActiveGame} />
-      <GameControls username={username} activeGame={activeGame} />
-      <GameInfo username={username} />
-      <WebsocketTest username={username} activeGame={activeGame} /> */}
-      <GameRoundSelect gameRound={activeRound} playRound={playRound} />
+      <Query<Games> query={gamesQuery}>
+        {({ data, loading, error }) => {
+          if (error) {
+            return "Error";
+          } else if (loading) {
+            return "Loading";
+          } else if (!data) {
+            return "No data";
+          } else {
+            return data.games.map(game => (
+              <div key={game.id}>
+                <h4>{`${game.player1.name} VS ${game.player2.name}`}</h4>
+                {game.gameRounds.map((round, index) => (
+                  <div key={round.id}>
+                    <p>Round {index + 1}</p>
+                    <Subscription<roundUpdates, roundUpdatesVariables>
+                      subscription={roundUpdatesSubscription}
+                      variables={{ roundId: round.id }}
+                      onSubscriptionData={({ subscriptionData }) => {
+                        if (
+                          subscriptionData.data &&
+                          subscriptionData.data.roundUpdates.answers[0]
+                            .startTime &&
+                          subscriptionData.data.roundUpdates.answers[0]
+                            .guessedSong == null
+                        ) {
+                          // Started answering
+                          timer.start();
+                        }
+                      }}
+                    >
+                      {({ loading, error, data }) => {
+                        if (error) {
+                          return "Error";
+                        } else if (loading) {
+                          return <p>Loading...</p>;
+                        } else if (!data) {
+                          return "No data";
+                        } else {
+                          return data.roundUpdates.id;
+                        }
+                      }}
+                    </Subscription>
+                    <p>{`Time: ${timer.timeMs}`}</p>
+                    <button
+                      onClick={() => {
+                        timer.stop();
+                      }}
+                    >
+                      Stop
+                    </button>
+                    {round.songQuestions.map((question, questionIndex) => (
+                      <div key={question.id}>
+                        <button
+                          key={question.id}
+                          onClick={() => {
+                            setSelectedQuestionId(question.id);
+                          }}
+                        >
+                          Question {questionIndex + 1}
+                        </button>
+                        {selectedQuestionId && (
+                          <Query<songQuestion, songQuestionVariables>
+                            query={questionQuery}
+                            variables={{ questionId: selectedQuestionId }}
+                          >
+                            {({ loading, data, error }) => {
+                              if (error) {
+                                return "Error";
+                              } else if (loading) {
+                                return <p>Loading...</p>;
+                              } else if (!data || !data.songQuestion) {
+                                return "No data";
+                              } else {
+                                return (
+                                  <div>
+                                    <p>Question: {data.songQuestion.id}</p>
+                                    <button
+                                      onClick={() => {
+                                        props.startQuestion({
+                                          variables: {
+                                            questionId: data.songQuestion.id
+                                          }
+                                        });
+                                      }}
+                                    >
+                                      Start
+                                    </button>
+                                    <button
+                                      onClick={() => {
+                                        props.resetQuestion({
+                                          variables: {
+                                            questionId: data.songQuestion.id
+                                          }
+                                        });
+                                      }}
+                                    >
+                                      Reset
+                                    </button>
+
+                                    <div>
+                                      <button
+                                        onClick={() => {
+                                          props
+                                            .submitAnswer({
+                                              variables: {
+                                                questionId:
+                                                  data.songQuestion.id,
+                                                songId:
+                                                  data.songQuestion.song.id
+                                              }
+                                            })
+                                            .then(res => {
+                                              if (res && res.data) {
+                                                console.log(
+                                                  "Timer: ",
+                                                  timer.timeMs,
+                                                  "Time: ",
+                                                  res.data.submitAnswer
+                                                    .answers[0].time
+                                                );
+                                              }
+                                            });
+                                        }}
+                                      >
+                                        {data.songQuestion.song.name}
+                                      </button>
+                                      {data.songQuestion.songAlternatives.map(
+                                        song => (
+                                          <button
+                                            key={song.id}
+                                            onClick={() => {
+                                              props.submitAnswer({
+                                                variables: {
+                                                  questionId:
+                                                    data.songQuestion.id,
+                                                  songId: song.id
+                                                }
+                                              });
+                                            }}
+                                          >
+                                            {song.name}
+                                          </button>
+                                        )
+                                      )}
+                                    </div>
+                                    <pre>
+                                      <code>
+                                        {JSON.stringify(
+                                          data.songQuestion,
+                                          null,
+                                          4
+                                        )}
+                                      </code>
+                                    </pre>
+                                  </div>
+                                );
+                              }
+                            }}
+                          </Query>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ));
+          }
+        }}
+      </Query>
     </div>
   );
 };
-export default Game;
+
+const EnhancedGame: React.FunctionComponent<{}> = () => (
+  <Mutation<submitAnswer, submitAnswerVariables>
+    mutation={submitAnswerMutation}
+  >
+    {submitAnswer => (
+      <Mutation<resetQuestion, resetQuestionVariables>
+        mutation={resetQuestionMutation}
+      >
+        {resetQuestion => (
+          <Mutation<startQuestion, startQuestionVariables>
+            mutation={startQuestionMutation}
+          >
+            {startQuestion => (
+              <Game
+                submitAnswer={submitAnswer}
+                resetQuestion={resetQuestion}
+                startQuestion={startQuestion}
+              />
+            )}
+          </Mutation>
+        )}
+      </Mutation>
+    )}
+  </Mutation>
+);
+
+export default EnhancedGame;

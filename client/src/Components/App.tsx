@@ -1,30 +1,50 @@
 import React, { Component } from "react";
-import { loader } from "graphql.macro";
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
-import { ApolloLink } from "apollo-link";
+import { ApolloLink, split } from "apollo-link";
+import { WebSocketLink } from "apollo-link-ws";
 import Game from "./Game";
+import { getMainDefinition } from "apollo-utilities";
 
-const query = loader("./Query.graphql");
+const wsLink = new WebSocketLink({
+  uri: `ws://localhost:4000/graphql`,
+  options: {
+    reconnect: true,
+    connectionParams: {
+      "user-id": "cjrz2fu8y00030835ylla0lio"
+    }
+  }
+});
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
+const httpLink = new HttpLink({
+  uri: process.env.REACT_APP_SERVER_URI,
+  credentials: "same-origin"
+});
 
 const client = new ApolloClient({
   link: ApolloLink.from([
-    onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors)
-        graphQLErrors.map(({ message, locations, path }) =>
-          console.log(
-            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-          )
-        );
-      if (networkError) console.log(`[Network error]: ${networkError}`);
-    }),
-    new HttpLink({
-      uri: process.env.REACT_APP_SERVER_URI,
-      credentials: "same-origin"
-    })
+    errorLink,
+    split(
+      ({ query }) => {
+        const { kind, operation } = getMainDefinition(query);
+        return kind === "OperationDefinition" && operation === "subscription";
+      },
+      wsLink,
+      httpLink
+    )
   ]),
   cache: new InMemoryCache()
 });

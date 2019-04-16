@@ -9,16 +9,13 @@ export const SongQuestion: SongQuestionResolvers.Type = {
   song: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
-  songAlternatives: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  player1Answer: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
-  player2Answer: (parent, args, ctx) => {
+  answers: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
   gameRound: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  songAlternatives: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   }
 };

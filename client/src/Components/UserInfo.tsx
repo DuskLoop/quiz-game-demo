@@ -5,6 +5,6 @@ interface IProps {
 }
 
 const userInfo: React.FunctionComponent<IProps> = props => {
-  return <div>Name: {props.username}</div>;
+  return <div>Your Name: {props.username}</div>;
 };
 export default userInfo;

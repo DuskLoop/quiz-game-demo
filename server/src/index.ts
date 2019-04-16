@@ -9,8 +9,6 @@ import { parse } from "cookie";
 import * as url from "url";
 import { createServer } from "http";
 
-const context: Context = { prisma };
-
 const typeDefs = importSchema("./schema.graphql");
 
 export const pubsub = new PubSub();
@@ -37,9 +35,17 @@ export const pubsub = new PubSub();
 const app = express();
 
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: typeDefs as any,
   resolvers: resolvers as any,
-  context
+  context: ({ req, connection }): Context => {
+    if (connection) {
+      console.log("Connection: ", connection.context);
+
+      return { prisma, userId: connection.context["user-id"] };
+    } else {
+      return { prisma, userId: req.headers["user-id"] };
+    }
+  }
 });
 
 server.applyMiddleware({ app });

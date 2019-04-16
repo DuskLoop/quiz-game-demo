@@ -8,12 +8,12 @@ import { Game } from "./Game";
 import { User } from "./User";
 import { GameRound } from "./GameRound";
 import { SongQuestion } from "./SongQuestion";
-import { HiddenSong } from "./HiddenSong";
 import { Song } from "./Song";
 import { Artist } from "./Artist";
 import { SongAnswer } from "./SongAnswer";
 import { Mutation } from "./Mutation";
 import { Subscription } from "./Subscription";
+import { HiddenSong } from "./HiddenSong";
 
 export const resolvers: Resolvers = {
   Query,
@@ -21,10 +21,10 @@ export const resolvers: Resolvers = {
   User,
   GameRound,
   SongQuestion,
-  HiddenSong,
   Song,
   Artist,
   SongAnswer,
   Mutation,
-  Subscription
+  Subscription,
+  HiddenSong
 };

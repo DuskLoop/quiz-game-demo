@@ -34,18 +34,17 @@ type GameRound {
 type SongQuestion {
   id: ID! @unique @id
   song: Song!
-  player1Answer: SongAnswer @relation(name: "Player1AnswerRelation")
-  player2Answer: SongAnswer @relation(name: "Player2AnswerRelation")
+  answers: [SongAnswer!]! @relation(name: "QuestionAnswer")
   gameRound: GameRound!
 }
 
 type SongAnswer {
   id: ID! @unique @id
-  correct: Boolean!
-  guessedSong: Song!
-  time: Int!
-  player1SongQuestion: SongQuestion @relation(name: "Player1AnswerRelation")
-  player2SongQuestion: SongQuestion @relation(name: "Player2AnswerRelation")
+  startTime: DateTime!
+  user: User!
+  guessedSong: Song
+  time: Int
+  question: SongQuestion! @relation(name: "QuestionAnswer")
 }
 
 type Song {

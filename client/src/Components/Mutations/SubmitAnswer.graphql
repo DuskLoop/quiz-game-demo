@@ -1,0 +1,25 @@
+mutation submitAnswer($questionId: ID!, $songId: ID!) {
+  submitAnswer(questionId: $questionId, songID: $songId) {
+    id
+    song {
+      id
+      name
+    }
+    answers {
+      id
+      startTime
+      guessedSong {
+        id
+        name
+        artist {
+          id
+          name
+        }
+      }
+      time
+    }
+    songAlternatives {
+      id
+    }
+  }
+}

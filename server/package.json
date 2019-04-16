@@ -4,17 +4,19 @@
   "main": "./dist/src/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon -x ts-node src/index.ts",
+    "start": "nodemon -x ts-node -T src/index.ts",
     "build": "tsc",
     "gen": "graphqlgen",
     "deploy": "now && now alias"
   },
   "dependencies": {
+    "@types/graphql": "^14.2.0",
     "apollo-server-express": "2.4.2",
     "cookie": "0.3.1",
     "express": "4.16.4",
     "graphql": "14.1.1",
     "graphql-import": "0.7.1",
+    "graphql-iso-date": "3.6.1",
     "prisma-client-lib": "1.26.4",
     "ws": "6.1.4"
   },

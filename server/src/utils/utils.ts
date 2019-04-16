@@ -7,3 +7,11 @@ export const shuffle = <T>(a: T[]) => {
   }
   return a;
 };
+
+export const throwIfUndefined = <T>(a: T, errorMessage: string) => {
+  if (a != null) {
+    return a;
+  } else {
+    throw Error(errorMessage);
+  }
+};

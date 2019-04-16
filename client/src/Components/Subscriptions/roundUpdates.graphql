@@ -1,0 +1,26 @@
+subscription roundUpdates($roundId: ID!) {
+  roundUpdates(roundId: $roundId) {
+    id
+    song {
+      id
+      name
+    }
+    answers {
+      id
+      startTime
+      guessedSong {
+        id
+        name
+        artist {
+          id
+          name
+        }
+      }
+      time
+    }
+    songAlternatives {
+      id
+      name
+    }
+  }
+}

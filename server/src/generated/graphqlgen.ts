@@ -23,6 +23,14 @@ export namespace QueryResolvers {
     id: string;
   }
 
+  export interface ArgsGameRound {
+    id: string;
+  }
+
+  export interface ArgsSongQuestion {
+    questionId: string;
+  }
+
   export type GamesResolver = (
     parent: undefined,
     args: {},
@@ -46,10 +54,17 @@ export namespace QueryResolvers {
 
   export type GameRoundResolver = (
     parent: undefined,
-    args: {},
+    args: ArgsGameRound,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => GameRound | Promise<GameRound>;
+
+  export type SongQuestionResolver = (
+    parent: undefined,
+    args: ArgsSongQuestion,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => SongQuestion | Promise<SongQuestion>;
 
   export interface Type {
     games: (
@@ -75,10 +90,17 @@ export namespace QueryResolvers {
 
     gameRound: (
       parent: undefined,
-      args: {},
+      args: ArgsGameRound,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => GameRound | Promise<GameRound>;
+
+    songQuestion: (
+      parent: undefined,
+      args: ArgsSongQuestion,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => SongQuestion | Promise<SongQuestion>;
   }
 }
 
@@ -294,28 +316,14 @@ export namespace SongQuestionResolvers {
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => HiddenSong | Promise<HiddenSong>;
+  ) => Song | Promise<Song>;
 
-  export type SongAlternativesResolver = (
+  export type AnswersResolver = (
     parent: SongQuestion,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Song[] | Promise<Song[]>;
-
-  export type Player1AnswerResolver = (
-    parent: SongQuestion,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => SongAnswer | null | Promise<SongAnswer | null>;
-
-  export type Player2AnswerResolver = (
-    parent: SongQuestion,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => SongAnswer | null | Promise<SongAnswer | null>;
+  ) => SongAnswer[] | Promise<SongAnswer[]>;
 
   export type GameRoundResolver = (
     parent: SongQuestion,
@@ -323,6 +331,13 @@ export namespace SongQuestionResolvers {
     ctx: Context,
     info: GraphQLResolveInfo
   ) => GameRound | Promise<GameRound>;
+
+  export type SongAlternativesResolver = (
+    parent: SongQuestion,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Song[] | Promise<Song[]>;
 
   export interface Type {
     id: (
@@ -337,28 +352,14 @@ export namespace SongQuestionResolvers {
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => HiddenSong | Promise<HiddenSong>;
+    ) => Song | Promise<Song>;
 
-    songAlternatives: (
+    answers: (
       parent: SongQuestion,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Song[] | Promise<Song[]>;
-
-    player1Answer: (
-      parent: SongQuestion,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => SongAnswer | null | Promise<SongAnswer | null>;
-
-    player2Answer: (
-      parent: SongQuestion,
-      args: {},
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => SongAnswer | null | Promise<SongAnswer | null>;
+    ) => SongAnswer[] | Promise<SongAnswer[]>;
 
     gameRound: (
       parent: SongQuestion,
@@ -366,28 +367,13 @@ export namespace SongQuestionResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => GameRound | Promise<GameRound>;
-  }
-}
 
-export namespace HiddenSongResolvers {
-  export const defaultResolvers = {
-    id: (parent: HiddenSong) => parent.id
-  };
-
-  export type IdResolver = (
-    parent: HiddenSong,
-    args: {},
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => string | Promise<string>;
-
-  export interface Type {
-    id: (
-      parent: HiddenSong,
+    songAlternatives: (
+      parent: SongQuestion,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => string | Promise<string>;
+    ) => Song[] | Promise<Song[]>;
   }
 }
 
@@ -496,8 +482,9 @@ export namespace ArtistResolvers {
 export namespace SongAnswerResolvers {
   export const defaultResolvers = {
     id: (parent: SongAnswer) => parent.id,
-    correct: (parent: SongAnswer) => parent.correct,
-    time: (parent: SongAnswer) => parent.time
+    startTime: (parent: SongAnswer) => parent.startTime,
+    time: (parent: SongAnswer) =>
+      parent.time === undefined ? null : parent.time
   };
 
   export type IdResolver = (
@@ -507,12 +494,19 @@ export namespace SongAnswerResolvers {
     info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
-  export type CorrectResolver = (
+  export type StartTimeResolver = (
     parent: SongAnswer,
     args: {},
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => boolean | Promise<boolean>;
+  ) => string | Promise<string>;
+
+  export type UserResolver = (
+    parent: SongAnswer,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | Promise<User>;
 
   export type GuessedSongResolver = (
     parent: SongAnswer,
@@ -528,7 +522,7 @@ export namespace SongAnswerResolvers {
     info: GraphQLResolveInfo
   ) => number | null | Promise<number | null>;
 
-  export type SongQuestionResolver = (
+  export type QuestionResolver = (
     parent: SongAnswer,
     args: {},
     ctx: Context,
@@ -543,12 +537,19 @@ export namespace SongAnswerResolvers {
       info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
-    correct: (
+    startTime: (
       parent: SongAnswer,
       args: {},
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => boolean | Promise<boolean>;
+    ) => string | Promise<string>;
+
+    user: (
+      parent: SongAnswer,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | Promise<User>;
 
     guessedSong: (
       parent: SongAnswer,
@@ -564,7 +565,7 @@ export namespace SongAnswerResolvers {
       info: GraphQLResolveInfo
     ) => number | null | Promise<number | null>;
 
-    songQuestion: (
+    question: (
       parent: SongAnswer,
       args: {},
       ctx: Context,
@@ -589,9 +590,17 @@ export namespace MutationResolvers {
     name: string;
   }
 
+  export interface ArgsStartQuestion {
+    questionId: string;
+  }
+
   export interface ArgsSubmitAnswer {
-    questionID: string;
+    questionId: string;
     songID: string;
+  }
+
+  export interface ArgsResetQuestion {
+    questionID: string;
   }
 
   export type StartGameResolver = (
@@ -615,9 +624,23 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
 
+  export type StartQuestionResolver = (
+    parent: undefined,
+    args: ArgsStartQuestion,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => SongQuestion | Promise<SongQuestion>;
+
   export type SubmitAnswerResolver = (
     parent: undefined,
     args: ArgsSubmitAnswer,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => SongQuestion | Promise<SongQuestion>;
+
+  export type ResetQuestionResolver = (
+    parent: undefined,
+    args: ArgsResetQuestion,
     ctx: Context,
     info: GraphQLResolveInfo
   ) => SongQuestion | Promise<SongQuestion>;
@@ -644,9 +667,23 @@ export namespace MutationResolvers {
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
 
+    startQuestion: (
+      parent: undefined,
+      args: ArgsStartQuestion,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => SongQuestion | Promise<SongQuestion>;
+
     submitAnswer: (
       parent: undefined,
       args: ArgsSubmitAnswer,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => SongQuestion | Promise<SongQuestion>;
+
+    resetQuestion: (
+      parent: undefined,
+      args: ArgsResetQuestion,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => SongQuestion | Promise<SongQuestion>;
@@ -656,36 +693,62 @@ export namespace MutationResolvers {
 export namespace SubscriptionResolvers {
   export const defaultResolvers = {};
 
-  export type StartRoundResolver = {
+  export interface ArgsRoundUpdates {
+    roundId: string;
+  }
+
+  export type RoundUpdatesResolver = {
     subscribe: (
       parent: undefined,
-      args: {},
+      args: ArgsRoundUpdates,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => AsyncIterator<SongQuestion> | Promise<AsyncIterator<SongQuestion>>;
     resolve?: (
       parent: undefined,
-      args: {},
+      args: ArgsRoundUpdates,
       ctx: Context,
       info: GraphQLResolveInfo
     ) => SongQuestion | Promise<SongQuestion>;
   };
 
   export interface Type {
-    startRound: {
+    roundUpdates: {
       subscribe: (
         parent: undefined,
-        args: {},
+        args: ArgsRoundUpdates,
         ctx: Context,
         info: GraphQLResolveInfo
       ) => AsyncIterator<SongQuestion> | Promise<AsyncIterator<SongQuestion>>;
       resolve?: (
         parent: undefined,
-        args: {},
+        args: ArgsRoundUpdates,
         ctx: Context,
         info: GraphQLResolveInfo
       ) => SongQuestion | Promise<SongQuestion>;
     };
+  }
+}
+
+export namespace HiddenSongResolvers {
+  export const defaultResolvers = {
+    id: (parent: HiddenSong) => parent.id
+  };
+
+  export type IdResolver = (
+    parent: HiddenSong,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export interface Type {
+    id: (
+      parent: HiddenSong,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
   }
 }
 
@@ -695,10 +758,10 @@ export interface Resolvers {
   User: UserResolvers.Type;
   GameRound: GameRoundResolvers.Type;
   SongQuestion: SongQuestionResolvers.Type;
-  HiddenSong: HiddenSongResolvers.Type;
   Song: SongResolvers.Type;
   Artist: ArtistResolvers.Type;
   SongAnswer: SongAnswerResolvers.Type;
   Mutation: MutationResolvers.Type;
   Subscription: SubscriptionResolvers.Type;
+  HiddenSong: HiddenSongResolvers.Type;
 }

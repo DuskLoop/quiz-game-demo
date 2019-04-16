@@ -1,4 +1,5 @@
 import { Resolvers } from "../generated/graphqlgen";
+import { GraphQLDate, GraphQLDateTime } from "graphql-iso-date";
 
 import { Query } from "./Query";
 import { Game } from "./Game";
@@ -12,7 +13,16 @@ import { SongAnswer } from "./SongAnswer";
 import { Song } from "./Song";
 import { Artist } from "./Artist";
 
-export const resolvers: Resolvers = {
+function oddValue(value) {
+  return value % 2 === 1 ? value : null;
+}
+
+interface ResolversAndCustomScalars extends Resolvers {
+  Date: any;
+  DateTime: any;
+}
+
+export const resolvers: ResolversAndCustomScalars = {
   Query,
   Game,
   User,
@@ -23,5 +33,7 @@ export const resolvers: Resolvers = {
   Song,
   Artist,
   Mutation,
-  Subscription
+  Subscription,
+  Date: GraphQLDate,
+  DateTime: GraphQLDateTime
 };

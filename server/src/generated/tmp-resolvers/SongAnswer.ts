@@ -6,10 +6,13 @@ import { SongAnswerResolvers } from "../graphqlgen";
 export const SongAnswer: SongAnswerResolvers.Type = {
   ...SongAnswerResolvers.defaultResolvers,
 
+  user: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
   guessedSong: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
-  songQuestion: (parent, args, ctx) => {
+  question: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   }
 };

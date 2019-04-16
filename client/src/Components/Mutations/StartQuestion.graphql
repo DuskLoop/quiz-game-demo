@@ -1,0 +1,26 @@
+mutation startQuestion($questionId: ID!) {
+  startQuestion(questionId: $questionId) {
+    id
+    song {
+      id
+      name
+    }
+    answers {
+      id
+      startTime
+      guessedSong {
+        id
+        name
+        artist {
+          id
+          name
+        }
+      }
+      time
+    }
+    songAlternatives {
+      id
+      name
+    }
+  }
+}

@@ -1,0 +1,19 @@
+query Games {
+  games {
+    id
+    player1 {
+      id
+      name
+    }
+    player2 {
+      id
+      name
+    }
+    gameRounds {
+      id
+      songQuestions {
+        id
+      }
+    }
+  }
+}
