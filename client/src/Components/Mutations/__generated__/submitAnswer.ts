@@ -52,4 +52,5 @@ export interface submitAnswer {
 export interface submitAnswerVariables {
   questionId: string;
   songId: string;
+  time: number;
 }

@@ -14,7 +14,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var graphqlgen_1 = require("../graphqlgen");
-exports.Subscription = __assign({}, graphqlgen_1.SubscriptionResolvers.defaultResolvers, { startRound: {
+exports.Subscription = __assign({}, graphqlgen_1.SubscriptionResolvers.defaultResolvers, { roundUpdates: {
         subscribe: function (parent, args, ctx) {
             throw new Error("Resolver not implemented");
         }

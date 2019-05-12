@@ -597,6 +597,7 @@ export namespace MutationResolvers {
   export interface ArgsSubmitAnswer {
     questionId: string;
     songID: string;
+    time: number;
   }
 
   export interface ArgsResetQuestion {

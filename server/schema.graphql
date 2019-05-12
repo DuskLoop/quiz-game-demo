@@ -14,7 +14,7 @@ type Mutation {
   startNewGameRound(gameId: ID!): GameRound!
   createUser(name: String!): User!
   startQuestion(questionId: ID!): SongQuestion!
-  submitAnswer(questionId: ID!, songID: ID!): SongQuestion!
+  submitAnswer(questionId: ID!, songID: ID!, time: Int!): SongQuestion!
   resetQuestion(questionID: ID!): SongQuestion!
 }
 

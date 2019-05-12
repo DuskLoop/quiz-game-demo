@@ -34,6 +34,8 @@ export const pubsub = new PubSub();
 
 const app = express();
 
+app.use("/static", express.static("static"));
+
 const server = new ApolloServer({
   typeDefs: typeDefs as any,
   resolvers: resolvers as any,
@@ -48,7 +50,7 @@ const server = new ApolloServer({
   }
 });
 
-server.applyMiddleware({ app });
+server.applyMiddleware({ app, path: "/graphql" });
 
 const httpServer = createServer(app);
 server.installSubscriptionHandlers(httpServer);

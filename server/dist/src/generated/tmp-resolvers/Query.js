@@ -22,5 +22,7 @@ exports.Query = __assign({}, graphqlgen_1.QueryResolvers.defaultResolvers, { gam
         throw new Error("Resolver not implemented");
     }, gameRound: function (parent, args, ctx) {
         throw new Error("Resolver not implemented");
+    }, songQuestion: function (parent, args, ctx) {
+        throw new Error("Resolver not implemented");
     } });
 //# sourceMappingURL=Query.js.map

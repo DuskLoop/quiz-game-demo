@@ -1,0 +1,88 @@
+scalar Date
+scalar DateTime
+
+type Query {
+  games: [Game!]!
+  users: [User!]!
+  song(id: ID!): Song
+  gameRound(id: ID!): GameRound!
+  songQuestion(questionId: ID!): SongQuestion!
+}
+
+type Mutation {
+  startGame(player1Id: ID!, player2Id: ID!): Game!
+  startNewGameRound(gameId: ID!): GameRound!
+  createUser(name: String!): User!
+  startQuestion(questionId: ID!): SongQuestion!
+  submitAnswer(questionId: ID!, songID: ID!, time: Int!): SongQuestion!
+  resetQuestion(questionID: ID!): SongQuestion!
+}
+
+type Subscription {
+  roundUpdates(roundId: ID!): SongQuestion!
+}
+
+type User {
+  id: ID!
+  name: String!
+  games: [Game!]!
+}
+
+enum WhosTurn {
+  PLAYER1
+  PLAYER2
+}
+
+enum GameRoundStatus {
+  ACTIVE
+  COMPLETED
+  CANCELED
+}
+
+type Game {
+  id: ID!
+  player1: User!
+  player2: User!
+  gameRounds: [GameRound!]!
+  whosTurn: WhosTurn!
+}
+
+type GameRound {
+  id: ID!
+  status: GameRoundStatus!
+  songQuestions: [SongQuestion!]!
+  game: Game!
+}
+
+type SongQuestion {
+  id: ID!
+  song: Song!
+  answers: [SongAnswer!]!
+  gameRound: GameRound!
+  songAlternatives: [Song!]!
+}
+
+type SongAnswer {
+  id: ID!
+  startTime: DateTime!
+  user: User!
+  guessedSong: Song
+  time: Int
+  question: SongQuestion!
+}
+
+type HiddenSong {
+  id: ID!
+}
+
+type Song {
+  id: ID!
+  name: String!
+  artist: Artist!
+}
+
+type Artist {
+  id: ID!
+  name: String!
+  songs: [Song!]!
+}

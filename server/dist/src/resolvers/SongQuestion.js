@@ -61,7 +61,7 @@ exports.SongQuestion = __assign({}, graphqlgen_1.SongQuestionResolvers.defaultRe
                 case 0: return [4 /*yield*/, ctx.prisma.songs()];
                 case 1:
                     songs = _a.sent();
-                    return [2 /*return*/, songs.slice(0, 3)];
+                    return [2 /*return*/, songs.slice(1, 4)];
             }
         });
     }); } });

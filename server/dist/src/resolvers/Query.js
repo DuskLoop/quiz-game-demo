@@ -20,5 +20,7 @@ exports.Query = __assign({}, graphqlgen_1.QueryResolvers.defaultResolvers, { gam
         return ctx.prisma.song({ id: args.id });
     }, gameRound: function (parent, args, ctx) {
         return ctx.prisma.gameRound({ id: args.id });
+    }, songQuestion: function (parent, args, ctx) {
+        return ctx.prisma.songQuestion({ id: args.questionId });
     } });
 //# sourceMappingURL=Query.js.map

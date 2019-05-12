@@ -1,5 +1,5 @@
-mutation submitAnswer($questionId: ID!, $songId: ID!) {
-  submitAnswer(questionId: $questionId, songID: $songId) {
+mutation submitAnswer($questionId: ID!, $songId: ID!, $time: Int!) {
+  submitAnswer(questionId: $questionId, songID: $songId, time: $time) {
     id
     song {
       id

@@ -49,7 +49,6 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var graphqlgen_1 = require("../generated/graphqlgen");
 var utils_1 = require("../utils/utils");
-var __1 = require("..");
 exports.Mutation = __assign({}, graphqlgen_1.MutationResolvers.defaultResolvers, { startGame: function (parent, args, ctx) {
         return ctx.prisma.createGame({
             player1: { connect: { id: args.player1Id } },
@@ -84,7 +83,7 @@ exports.Mutation = __assign({}, graphqlgen_1.MutationResolvers.defaultResolvers,
             }
         });
     }); }, submitAnswer: function (parent, args, ctx) { return __awaiter(_this, void 0, void 0, function () {
-        var user, usersAnswers, answer, timeDiff, updatedQuestion;
+        var user, usersAnswers, answer;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, ctx.prisma.user({ id: "cjrz2fu8y00030835ylla0lio" })];
@@ -102,77 +101,60 @@ exports.Mutation = __assign({}, graphqlgen_1.MutationResolvers.defaultResolvers,
                         throw Error("User has has no answers on this question");
                     }
                     answer = usersAnswers[0];
-                    timeDiff = new Date().getTime() - new Date(answer.startTime).getTime();
-                    return [4 /*yield*/, ctx.prisma.updateSongQuestion({
+                    console.log(new Date().getTime() - new Date(answer.startTime).getTime());
+                    if (new Date().getTime() - new Date(answer.startTime).getTime() > 3000) {
+                        console.log("Time!");
+                        return [2 /*return*/, ctx.prisma.updateSongQuestion({
+                                where: { id: args.questionId },
+                                data: {
+                                    answers: {
+                                        update: {
+                                            where: { id: answer.id },
+                                            data: {
+                                                time: 10000
+                                            }
+                                        }
+                                    }
+                                }
+                            })];
+                    }
+                    return [2 /*return*/, ctx.prisma.updateSongQuestion({
                             where: { id: args.questionId },
                             data: {
                                 answers: {
                                     update: {
                                         where: { id: answer.id },
                                         data: {
-                                            time: timeDiff,
+                                            time: args.time,
                                             guessedSong: { connect: { id: args.songID } }
                                         }
                                     }
                                 }
                             }
                         })];
-                case 3:
-                    updatedQuestion = _a.sent();
-                    __1.pubsub.publish("QUESTION_SUBMITTED", { startRound: updatedQuestion });
-                    return [2 /*return*/, updatedQuestion];
             }
         });
     }); }, startQuestion: function (parent, args, ctx) { return __awaiter(_this, void 0, void 0, function () {
-        var startTime, startedQuestion, createdAnswers, createdAnswer;
+        var startTime;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    startTime = new Date();
-                    return [4 /*yield*/, ctx.prisma.updateSongQuestion({
-                            where: { id: args.questionId },
-                            data: {
-                                answers: {
-                                    create: {
-                                        startTime: startTime,
-                                        user: { connect: { id: "cjrz2fu8y00030835ylla0lio" } }
-                                    }
-                                }
+            startTime = new Date();
+            return [2 /*return*/, ctx.prisma.updateSongQuestion({
+                    where: { id: args.questionId },
+                    data: {
+                        answers: {
+                            create: {
+                                startTime: startTime,
+                                user: { connect: { id: "cjrz2fu8y00030835ylla0lio" } }
                             }
-                        })];
-                case 1:
-                    startedQuestion = _a.sent();
-                    return [4 /*yield*/, ctx.prisma
-                            .songQuestion({ id: args.questionId })
-                            .answers({ where: { user: { id: "cjrz2fu8y00030835ylla0lio" } } })];
-                case 2:
-                    createdAnswers = _a.sent();
-                    if (createdAnswers.length > 1) {
-                        throw Error("User has more than one answer on this question");
+                        }
                     }
-                    if (createdAnswers[0] == null) {
-                        throw Error("User has has no answers on this question");
-                    }
-                    createdAnswer = createdAnswers[0];
-                    __1.pubsub.publish("QUESTION_STARTED", { startRound: startedQuestion });
-                    return [4 /*yield*/, new Promise(function (r) { return setTimeout(r, 5000); })];
-                case 3:
-                    _a.sent();
-                    return [2 /*return*/, ctx.prisma.updateSongQuestion({
-                            where: { id: args.questionId },
-                            data: {
-                                answers: {
-                                    update: { where: { id: createdAnswer.id }, data: { time: 5000 } }
-                                }
-                            }
-                        })];
-            }
+                })];
         });
     }); }, resetQuestion: function (parent, args, ctx) {
         return ctx.prisma.updateSongQuestion({
             where: { id: args.questionID },
             data: {
-                answers: { deleteMany: { id_gt: 0 } }
+                answers: { deleteMany: { id_not: null } }
             }
         });
     } });

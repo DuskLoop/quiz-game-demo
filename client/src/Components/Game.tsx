@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import useUsername from "./hooks/useUsername";
 import UserInfo from "./UserInfo";
 import { Query, Mutation, MutationFn, Subscription } from "react-apollo";
 import { loader } from "graphql.macro";
 import { Games } from "./__generated__/Games";
+import { GraphQLError } from "graphql";
 import {
   submitAnswer,
   submitAnswerVariables
@@ -26,6 +27,8 @@ import {
   songQuestionVariables
 } from "./Queries/__generated__/songQuestion";
 import { useTimer } from "./hooks/useTimer";
+import { useEffect } from "react";
+import { Button } from "./Button/Button";
 
 const gamesQuery = loader("./Games.graphql");
 const questionQuery = loader("./Queries/songQuestion.graphql");
@@ -45,10 +48,34 @@ const Game: React.FunctionComponent<IProps> = props => {
   const [selectedQuestionId, setSelectedQuestionId] = useState<
     string | undefined
   >(undefined);
-  const timer = useTimer();
+  const timer = useTimer(1000);
+
+  const audioEl = useRef<HTMLAudioElement>(null);
 
   return (
     <div>
+      <audio
+        src="http://localhost:4000/static/audio/BLACKPINK.mp3"
+        ref={audioEl}
+      />
+      <button
+        onClick={() => {
+          if (audioEl.current) {
+            audioEl.current.play();
+          }
+        }}
+      >
+        Play
+      </button>
+      <button
+        onClick={() => {
+          if (audioEl.current) {
+            audioEl.current.pause();
+          }
+        }}
+      >
+        Pause
+      </button>
       <UserInfo username={username} />
       <Query<Games> query={gamesQuery}>
         {({ data, loading, error }) => {
@@ -96,6 +123,20 @@ const Game: React.FunctionComponent<IProps> = props => {
                     <p>{`Time: ${timer.timeMs}`}</p>
                     <button
                       onClick={() => {
+                        timer.start();
+                      }}
+                    >
+                      Start
+                    </button>
+                    <button
+                      onClick={() => {
+                        timer.pause();
+                      }}
+                    >
+                      Pause
+                    </button>
+                    <button
+                      onClick={() => {
                         timer.stop();
                       }}
                     >
@@ -134,6 +175,7 @@ const Game: React.FunctionComponent<IProps> = props => {
                                             questionId: data.songQuestion.id
                                           }
                                         });
+                                        timer.start();
                                       }}
                                     >
                                       Start
@@ -151,7 +193,7 @@ const Game: React.FunctionComponent<IProps> = props => {
                                     </button>
 
                                     <div>
-                                      <button
+                                      <Button
                                         onClick={() => {
                                           props
                                             .submitAnswer({
@@ -159,7 +201,8 @@ const Game: React.FunctionComponent<IProps> = props => {
                                                 questionId:
                                                   data.songQuestion.id,
                                                 songId:
-                                                  data.songQuestion.song.id
+                                                  data.songQuestion.song.id,
+                                                time: timer.timeMs
                                               }
                                             })
                                             .then(res => {
@@ -173,10 +216,12 @@ const Game: React.FunctionComponent<IProps> = props => {
                                                 );
                                               }
                                             });
+
+                                          timer.pause();
                                         }}
                                       >
                                         {data.songQuestion.song.name}
-                                      </button>
+                                      </Button>
                                       {data.songQuestion.songAlternatives.map(
                                         song => (
                                           <button
@@ -186,9 +231,11 @@ const Game: React.FunctionComponent<IProps> = props => {
                                                 variables: {
                                                   questionId:
                                                     data.songQuestion.id,
-                                                  songId: song.id
+                                                  songId: song.id,
+                                                  time: timer.timeMs
                                                 }
                                               });
+                                              timer.pause();
                                             }}
                                           >
                                             {song.name}

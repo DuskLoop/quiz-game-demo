@@ -1,4 +1,12 @@
 import { QueryResolvers } from "../generated/graphqlgen";
+import { ApolloError } from "apollo-server-express";
+
+class AuthorizationError extends ApolloError {
+  name = "AuthorizationError";
+  constructor(message: string) {
+    super(message, "UNAUTHORIZED");
+  }
+}
 
 export const Query: QueryResolvers.Type = {
   ...QueryResolvers.defaultResolvers,

@@ -40,7 +40,6 @@ export const Mutation: MutationResolvers.Type = {
     return newGameRound;
   },
   submitAnswer: async (parent, args, ctx) => {
-    const submitStart = new Date();
     const user = await ctx.prisma.user({ id: "cjrz2fu8y00030835ylla0lio" });
     const usersAnswers = await ctx.prisma
       .songQuestion({ id: args.questionId })
@@ -56,32 +55,45 @@ export const Mutation: MutationResolvers.Type = {
 
     const answer = usersAnswers[0];
 
-    const timeDiff =
-      new Date().getTime() - new Date(answer.startTime).getTime();
+    console.log(new Date().getTime() - new Date(answer.startTime).getTime());
 
-    console.log("Submit: ", new Date().getTime() - submitStart.getTime());
+    if (new Date().getTime() - new Date(answer.startTime).getTime() > 3000) {
+      console.log("Time!");
 
-    const updatedQuestion = await ctx.prisma.updateSongQuestion({
+      return ctx.prisma.updateSongQuestion({
+        where: { id: args.questionId },
+        data: {
+          answers: {
+            update: {
+              where: { id: answer.id },
+              data: {
+                time: 10000
+              }
+            }
+          }
+        }
+      });
+    }
+
+    return ctx.prisma.updateSongQuestion({
       where: { id: args.questionId },
       data: {
         answers: {
           update: {
             where: { id: answer.id },
             data: {
-              time: timeDiff,
+              time: args.time,
               guessedSong: { connect: { id: args.songID } }
             }
           }
         }
       }
     });
-
-    return updatedQuestion;
   },
   startQuestion: async (parent, args, ctx) => {
     const startTime = new Date();
 
-    const startedQuestion = await ctx.prisma.updateSongQuestion({
+    return ctx.prisma.updateSongQuestion({
       where: { id: args.questionId },
       data: {
         answers: {
@@ -92,47 +104,6 @@ export const Mutation: MutationResolvers.Type = {
         }
       }
     });
-
-    const createdAnswers = await ctx.prisma
-      .songQuestion({ id: args.questionId })
-      .answers({ where: { user: { id: "cjrz2fu8y00030835ylla0lio" } } });
-
-    if (createdAnswers.length > 1) {
-      throw Error("User has more than one answer on this question");
-    }
-
-    if (createdAnswers[0] == null) {
-      throw Error("User has has no answers on this question");
-    }
-
-    const createdAnswer = createdAnswers[0];
-
-    console.log(new Date().getTime() - startTime.getTime());
-
-    pubsub.publish("QUESTION_STARTED", {
-      startRound: startedQuestion
-    });
-
-    await new Promise(r => setTimeout(r, 10000));
-
-    const song = await ctx.prisma
-      .songAnswer({ id: createdAnswer.id })
-      .guessedSong();
-
-    if (song == null) {
-      return ctx.prisma.updateSongQuestion({
-        where: { id: args.questionId },
-        data: {
-          answers: {
-            update: { where: { id: createdAnswer.id }, data: { time: 10000 } }
-          }
-        }
-      });
-    } else {
-      return ctx.prisma.songQuestion({
-        id: args.questionId
-      });
-    }
   },
   resetQuestion: (parent, args, ctx) => {
     return ctx.prisma.updateSongQuestion({
